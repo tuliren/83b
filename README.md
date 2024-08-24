@@ -4,16 +4,6 @@
 
 ## Development
 
-### Dev credential
-
-- Add dev credential from `.env.sample`
-  ```
-  cp .env.sample .env.local
-  ```
-- Update `.env.local` with credentials from the dev database
-
-### Dev server
-
 - Run
   ```
   corepack enable
@@ -22,7 +12,15 @@
   ```
 - Visit `localhost:3000`
 
-### Local script
+## Dependencies
 
-- Add a `ts` file under [`scripts`](./scripts).
-- Run it with `yarn script scripts/<file> [parameters]`.
+- [NextJS](https://nextjs.org/)
+- [Mantine](https://mantine.dev/)
+- [Tailwind](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Vercel](https://vercel.com/)
+- [Tabler Icons](https://tabler.io/icons/)
+
+## License
+
+[MIT](LICENSE)
