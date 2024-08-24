@@ -30,6 +30,20 @@ const App: FC<AppProps> = ({ election, letter }) => {
 
       <Card className="w-full max-w-4xl">
         <CardHeader>
+          <CardTitle className="text-xl">What is an 83(b) election?</CardTitle>
+          <CardDescription>
+            An 83(b) election is a form that you send to the IRS to let them know that you want to be taxed on the fair
+            market value of your stock <span className="font-bold">at the time of granting</span>, rather than{' '}
+            <span className="font-bold">at the time of vesting</span>.
+            <div className="py-2" />
+            Please consult with a tax professional before making an 83(b) election. This tool is provided for your
+            convenience, but it is not a substitute for professional advice.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+
+      <Card className="w-full max-w-4xl">
+        <CardHeader>
           <CardTitle className="text-xl">Election 83(b)</CardTitle>
           <CardDescription>Please fill in the blanks to create an 83(b) election.</CardDescription>
         </CardHeader>
@@ -37,7 +51,7 @@ const App: FC<AppProps> = ({ election, letter }) => {
         <Separator />
 
         <CardContent className="pt-6">
-          <CustomMarkdown text={election} textClassNames={['text-md']} />
+          <CustomMarkdown text={election} textClassNames={['text-md', 'text-gray-700']} />
         </CardContent>
       </Card>
 
@@ -50,7 +64,7 @@ const App: FC<AppProps> = ({ election, letter }) => {
         <Separator />
 
         <CardContent className="pt-6">
-          <CustomMarkdown text={letter} textClassNames={['text-md']} />
+          <CustomMarkdown text={letter} textClassNames={['text-md', 'text-gray-700']} />
         </CardContent>
       </Card>
     </main>
