@@ -38,14 +38,14 @@
 ### IDE Support
 
 - Setup `eslint` in IntelliJ
-    - Go to `Preferences / Language & Frameworks / JavaScript / Code Quality Tools / ESLint`
-    - Check `Manual ESLint configuration`
-    - Set `ESLint package` to `Detect package and configuration file from the nearest package.json`
-        - If you use `Automatic ESLint configuration`, the setting depends on the global format in
-          your IntelliJ, which may be different from the setting in this project.
-    - [Optional] Check `Run eslint --fix on save`
+  - Go to `Preferences / Language & Frameworks / JavaScript / Code Quality Tools / ESLint`
+  - Check `Manual ESLint configuration`
+  - Set `ESLint package` to `Detect package and configuration file from the nearest package.json`
+      - If you use `Automatic ESLint configuration`, the setting depends on the global format in
+        your IntelliJ, which may be different from the setting in this project.
+  - [Optional] Check `Run eslint --fix on save`
 - Setup `prettier` in IntelliJ
-    - Go to `Preferences / Languages & Frameworks / JavaScript / Prettier`
-    - Select the `Prettier package` from the `node_modules`.
-    - [Optional] Check `On 'Reformat Code' action`
-    - [Optional] Check `On save`
+  - Go to `Preferences / Languages & Frameworks / JavaScript / Prettier`
+  - Select the `Prettier package` from the `node_modules`.
+  - [Optional] Check `On 'Reformat Code' action`
+  - [Optional] Check `On save`
