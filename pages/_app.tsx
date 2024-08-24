@@ -1,4 +1,4 @@
-import { AppShell, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import PlausibleProvider from 'next-plausible';
@@ -25,9 +25,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <PlausibleProvider domain="83b.page" enabled={enableAnalytics}>
         <MantineProvider>
           <Notifications />
-          <AppShell padding="lg">
-            <Component {...pageProps} />
-          </AppShell>
+          <Component {...pageProps} />
         </MantineProvider>
       </PlausibleProvider>
     </>

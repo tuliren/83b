@@ -1,41 +1,24 @@
-import { Button, Card, Group, SimpleGrid, Text } from '@mantine/core';
-import { NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-const Error404: NextPage = () => {
-  const router = useRouter();
-
+export default function NotFound() {
   return (
-    <>
-      <Head>
-        <title>404 Page Not Found</title>
-      </Head>
-
-      <SimpleGrid cols={3}>
-        <div />
-        <Card shadow="sm" p="lg">
-          <Group style={{ marginBottom: 5, marginTop: 'sm' }}>
-            <Text w={700}>404 - Page Not Found</Text>
-          </Group>
-
-          <Button
-            variant="light"
-            color="blue"
-            fullWidth={false}
-            loading={false}
-            style={{ marginTop: 14 }}
-            onClick={async () => {
-              await router.push('/');
-            }}
+    <main className="grid min-h-screen place-items-center bg-gray-100 px-6 py-24 sm:py-32 lg:px-8">
+      <div className="text-center">
+        <p className="text-lg font-semibold text-gray-600">404</p>
+        <h1 className="mt-4 text-3xl font-bold text-gray-700 sm:text-5xl">Page not found</h1>
+        <p className="mt-6 text-base leading-7 text-gray-600">Sorry, we couldn’t find the page you’re looking for.</p>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          <Link
+            href="/"
+            className="rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Go to Homepage
-          </Button>
-        </Card>
-        <div />
-      </SimpleGrid>
-    </>
+            Go back home
+          </Link>
+          <a href="mailto:contact@83b.page" className="text-sm font-semibold text-gray-900">
+            Contact support <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </main>
   );
-};
-
-export default Error404;
+}
