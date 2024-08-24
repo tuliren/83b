@@ -5,16 +5,18 @@
 
 VIA CERTIFIED MAIL
 
-Department of the Treasury
-Internal Revenue Service
-IRS Address: {{irs-address}}
+- Department of the Treasury
+- Internal Revenue Service
+- IRS Address: {{irs-address}}
 
 <br />
 
 **Re: Election under Section 83(b) of the Internal Revenue Code of 1986**
 
-Taxpayer: {{person-name}} (SSN: {{person-ssn}})
-Taxpayer’s Spouse: {{spouse-name}} (SSN: {{spouse-ssn}})
+- Taxpayer: {{person-name}} (SSN: {{person-ssn}})
+- Taxpayer’s Spouse: {{spouse-name}} (SSN: {{spouse-ssn}})
+
+<br />
 
 Ladies and Gentlemen:
 
@@ -31,7 +33,7 @@ Signature: ________________________
 
 <br/>
 
-<ins>Enclosures</ins>
+<ins>Enclosures</ins>:
 
 1. 83(b) Election File Copy (Copy 1): for filing with IRS
 2. 83(b) Election Acknowledgment Copy (Copy 2) with self-addressed, postage-paid envelope: for date stamping and returning to taxpayer
