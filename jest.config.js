@@ -4,7 +4,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'ts'],
   testMatch: ['**/tests/**/*.test.ts'],
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
@@ -20,5 +20,5 @@ module.exports = {
       },
     ],
   ],
-  verbose: true
+  verbose: true,
 };

@@ -1,0 +1,44 @@
+# Election under Internal Revenue Code Section 83(b)
+
+The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Internal Revenue Code of 1986, as amended, to include in taxpayer's gross income for the current taxable year the amount of any compensation taxable to taxpayer in connection with taxpayer's receipt of shares (the "<ins>Shares</ins>") of Common Stock of **{{company-name}}** (the "<ins>Company</ins>").
+
+1. The name, address and taxpayer identification number of the undersigned taxpayer are: 
+    - Name: **{{person-name}}** 
+    - Address: **{{person-address}}**
+    - SSN: **{{person-ssn}}**
+
+2. The name, address and taxpayer identification number of the Taxpayer's spouse/registered domestic partner are:
+    - Name: **{{spouse-name}}**
+    - Address: **{{spouse-address}}**
+    - SSN: **{{spouse-ssn}}**
+
+3. Description of the property with respect to which the election is being made: **{{share-number}}** Shares of the Company.
+
+4. The date on which the property was transferred was **{{transfer-date}}**. The taxable year to which this election relates is the calendar year **{{tax-year}}**.
+
+5. Nature of restrictions to which the property is subject:
+   The Shares are subject to repurchase by the Company or its assignee upon the occurrence of certain events. This repurchase right lapses based upon the continued performance of services by the taxpayer over time.
+
+6. The fair market value at the time of transfer (determined without regard to any lapse restrictions, as defined in Treasury Regulation Section 1.83-3(i)) of the Shares was **${{fmv-per-share-price}}** per Share x **{{share-number}}** Shares = **${{fmv-total-share-price}}**.
+
+7. The amount paid by the taxpayer for Shares was **${{paid-per-share-price}}** per Share x **{{share-number}}** Shares = **${{paid-total-share-price}}**.
+
+8. The amount to include in gross income is **${{gross-income-amount}}**.
+
+The undersigned taxpayer will file this election with the Internal Revenue Service office with which the taxpayer files his or her annual income tax return no later than 30 days after the date of transfer of the property. A copy of this statement has been furnished to the Company. The undersigned is the person performing the services in connection with which the property was transferred.
+
+The undersigned understands that the foregoing election may not be revoked except with the consent of the Commissioner.
+
+<br />
+
+- Taxpayer Signature: ________________________
+- Date: {{person-sign-date}}
+
+<br />
+
+The undersigned spouse or registered domestic partner of the Taxpayer joins in this election.
+
+<br />
+
+- Spouse's Signature: ________________________
+- Date: {{spouse-sign-date}}
