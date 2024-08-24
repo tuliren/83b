@@ -1,4 +1,4 @@
-import { AppShell, Container, MantineProvider } from '@mantine/core';
+import { AppShell, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import PlausibleProvider from 'next-plausible';
@@ -26,9 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <MantineProvider>
           <Notifications />
           <AppShell padding="lg">
-            <Container pt="xl" size="xl">
-              <Component {...pageProps} />
-            </Container>
+            <Component {...pageProps} />
           </AppShell>
         </MantineProvider>
       </PlausibleProvider>
