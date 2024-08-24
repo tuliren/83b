@@ -1,6 +1,7 @@
 # Election 83(b) Generator
 
-[![Build](https://github.com/tuliren/83b/actions/workflows/build.yaml/badge.svg)](https://github.com/tuliren/83b/actions/workflows/build.yaml)
+> [!TIP]
+> Quick and simple 83(b) election form generation.
 
 ## Development
 
