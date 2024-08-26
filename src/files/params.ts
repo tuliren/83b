@@ -10,6 +10,12 @@ export interface FormParam {
 
 export const ElectionParams: FormParam[] = [
   {
+    id: 'company-name',
+    name: 'Company name',
+    type: 'string',
+    required: true,
+  },
+  {
     id: 'person-name',
     name: 'Taxpayer name',
     type: 'string',
@@ -68,5 +74,29 @@ export const ElectionParams: FormParam[] = [
     description: 'Tax year for which the election is being made',
     type: 'number',
     required: true,
+  },
+  {
+    id: 'fmv-per-share-price',
+    name: 'FMV per share price',
+    type: 'number',
+    required: true,
+  },
+  {
+    id: 'paid-per-share-price',
+    name: 'Paid per share price',
+    type: 'number',
+    required: true,
+  },
+  {
+    id: 'person-sign-date',
+    name: 'Taxpayer signature date',
+    type: 'date',
+    required: false,
+  },
+  {
+    id: 'spouse-sign-date',
+    name: 'Spouse signature date',
+    type: 'date',
+    required: false,
   },
 ];

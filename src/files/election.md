@@ -31,8 +31,7 @@ The undersigned understands that the foregoing election may not be revoked excep
 
 <br />
 
-- Taxpayer Signature: ________________________
-- Date: {{person-sign-date}}
+Taxpayer Signature: ________________________ Date: {{person-sign-date}}
 
 <br />
 
@@ -40,5 +39,4 @@ The undersigned spouse or registered domestic partner of the Taxpayer joins in t
 
 <br />
 
-- Spouse's Signature: ________________________
-- Date: {{spouse-sign-date}}
+Spouse's Signature: ________________________ Date: {{spouse-sign-date}}
