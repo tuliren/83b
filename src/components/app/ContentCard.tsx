@@ -28,8 +28,8 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
 
       <Separator />
 
-      <CardContent className="pt-4">
-        <CustomMarkdown text={processedContent} textClassNames={['text-sm', 'text-gray-700']} />
+      <CardContent className="p-6">
+        <CustomMarkdown text={processedContent} textClassNames={['text-sm', 'text-gray-700', 'pl-4', 'pr-6']} />
       </CardContent>
     </Card>
   );
