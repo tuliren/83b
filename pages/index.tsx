@@ -6,7 +6,8 @@ import ContentCard from '@/components/app/ContentCard';
 import Footer from '@/components/app/Footer';
 import OverviewCard from '@/components/app/OverviewCard';
 import ParamsCard from '@/components/app/ParamsCard';
-import { ElectionParams } from '@/files/params';
+import { ELECTION_PARAMS } from '@/files/constants';
+import { getInitialParams } from '@/params/paramHelpers';
 
 interface AppProps {
   election: string;
@@ -26,10 +27,7 @@ export async function getStaticProps() {
 }
 
 const App: FC<AppProps> = ({ election, letter }) => {
-  const initialFormData = ElectionParams.reduce((acc, param) => {
-    acc[param.id] = '';
-    return acc;
-  }, {} as Record<string, string>);
+  const initialFormData = getInitialParams(ELECTION_PARAMS);
   const [formData, setFormData] = useState(initialFormData);
 
   return (
@@ -37,13 +35,13 @@ const App: FC<AppProps> = ({ election, letter }) => {
       <p className="text-3xl font-bold">83(b) Election Generator</p>
       <p className="text-muted-foreground text-lg">(under construction)</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full max-w-6xl">
-        <div className="col-span-1 md:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full">
+        <div className="col-span-1 md:col-span-2 space-y-4">
           <OverviewCard />
           <ParamsCard formData={formData} setFormData={setFormData} />
         </div>
 
-        <div className="col-span-1 md:col-span-4 space-y-6">
+        <div className="col-span-1 md:col-span-4 space-y-4">
           <ContentCard title="Election Preview" content={election} formData={formData} />
           <ContentCard title="Letter to IRS" content={letter} formData={formData} />
         </div>
