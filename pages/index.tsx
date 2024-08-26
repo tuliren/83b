@@ -34,6 +34,7 @@ const App: FC<AppProps> = ({ election, letter }) => {
   return (
     <main className="flex flex-col min-h-screen items-center p-4 sm:p-6 sm:gap-6 gap-4 bg-gray-100">
       <p className="text-3xl font-bold">83(b) Election Generator</p>
+      <p className="text-muted-foreground text-lg">(under construction)</p>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 w-full max-w-6xl">
         <div className="col-span-1 md:col-span-2 space-y-6">
@@ -42,7 +43,7 @@ const App: FC<AppProps> = ({ election, letter }) => {
         </div>
 
         <div className="col-span-1 md:col-span-3 space-y-6">
-          <ContentCard title="83(b) Election Preview" content={election} formData={formData} />
+          <ContentCard title="Election Preview" content={election} formData={formData} />
           <ContentCard title="Letter to IRS" content={letter} formData={formData} />
         </div>
       </div>
