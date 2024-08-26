@@ -3,6 +3,7 @@ import path from 'path';
 import { FC, useState } from 'react';
 
 import ContentCard from '@/components/app/ContentCard';
+import Footer from '@/components/app/Footer';
 import OverviewCard from '@/components/app/OverviewCard';
 import ParamsCard from '@/components/app/ParamsCard';
 import { ElectionParams } from '@/files/params';
@@ -47,6 +48,8 @@ const App: FC<AppProps> = ({ election, letter }) => {
           <ContentCard title="Letter to IRS" content={letter} formData={formData} />
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 };
