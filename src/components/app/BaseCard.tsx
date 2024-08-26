@@ -11,7 +11,7 @@ interface BaseCardProps {
 
 const BaseCard: FC<BaseCardProps> = ({ title, description, children }) => {
   return (
-    <Card className="w-full max-w-4xl">
+    <Card className="w-full">
       <CardHeader className="py-6">
         <CardTitle>{title}</CardTitle>
         {description != null && <CardDescription>{description}</CardDescription>}
