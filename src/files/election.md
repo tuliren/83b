@@ -1,4 +1,4 @@
-# Election under Internal Revenue Code Section 83(b)
+### Election under Internal Revenue Code Section 83(b)
 
 The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Internal Revenue Code of 1986, as amended, to include in taxpayer's gross income for the current taxable year the amount of any compensation taxable to taxpayer in connection with taxpayer's receipt of shares (the "<ins>Shares</ins>") of Common Stock of **{{company-name}}** (the "<ins>Company</ins>").
 
@@ -31,8 +31,7 @@ The undersigned understands that the foregoing election may not be revoked excep
 
 <br />
 
-- Taxpayer Signature: ________________________
-- Date: {{person-sign-date}}
+Taxpayer Signature: ________________________ Date: {{person-sign-date}}
 
 <br />
 
@@ -40,5 +39,4 @@ The undersigned spouse or registered domestic partner of the Taxpayer joins in t
 
 <br />
 
-- Spouse's Signature: ________________________
-- Date: {{spouse-sign-date}}
+Spouse's Signature: ________________________ Date: {{spouse-sign-date}}

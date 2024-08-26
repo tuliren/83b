@@ -1,4 +1,4 @@
-{{date}}
+{{letter-date}}
 
 {{person-name}}
 {{person-address}}
