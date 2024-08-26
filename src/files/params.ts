@@ -3,7 +3,7 @@ export interface FormParam {
   name: string;
   description?: string;
   placeholder?: string;
-  type: 'string' | 'integer' | 'boolean' | 'date';
+  type: 'string' | 'number' | 'boolean' | 'date';
   required: boolean;
   default?: string;
 }
@@ -52,7 +52,7 @@ export const ElectionParams: FormParam[] = [
     id: 'share-number',
     name: 'Number of shares',
     description: 'Total number of shares applicable to the election',
-    type: 'integer',
+    type: 'number',
     required: true,
   },
   {
@@ -66,7 +66,7 @@ export const ElectionParams: FormParam[] = [
     id: 'tax-year',
     name: 'Tax year',
     description: 'Tax year for which the election is being made',
-    type: 'integer',
+    type: 'number',
     required: true,
   },
 ];
