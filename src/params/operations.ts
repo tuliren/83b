@@ -32,7 +32,7 @@ const evaluateOperand = (operand: Operation | number | string, valueMap: FormDat
       const value = valueMap[operand];
       if (typeof value === 'string') {
         return parseFloat(value);
-      } else {
+      } else if (typeof value === 'number') {
         return value;
       }
     }

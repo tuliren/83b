@@ -8,7 +8,7 @@ export enum DefaultFormParamType {
 
 export interface DefaultValueFormParam {
   type: DefaultFormParamType.Value;
-  value: string;
+  value: string | number;
 }
 
 export interface DefaultFormulaFormParam {
@@ -32,7 +32,7 @@ export interface FormParam {
   name: string;
   description?: string;
   placeholder?: string;
-  valueType: 'string' | 'number' | 'date';
+  valueType: 'string' | 'number' | 'boolean' | 'date';
   paramType: 'required' | 'optional' | 'calculated';
   default?: DefaultFormParam;
 }
