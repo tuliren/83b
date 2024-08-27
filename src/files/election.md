@@ -29,18 +29,8 @@ The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Interna
 
 The undersigned taxpayer will file this election with the Internal Revenue Service office with which the taxpayer files his or her annual income tax return no later than 30 days after the date of transfer of the property. A copy of this statement has been furnished to the Company. The undersigned is the person performing the services in connection with which the property was transferred.
 
-The undersigned understands that the foregoing election may not be revoked except with the consent of the Commissioner.
+The undersigned understands that the foregoing election may not be revoked except with the consent of the Commissioner. {{#if has-spouse == true}}The undersigned spouse or registered domestic partner of the Taxpayer joins in this election.{{/if}}
 
 <br />
 
-Taxpayer Signature: ________________________ Date: {{person-sign-date}}
-
-<br />
-
-{{#if has-spouse == true}}
-The undersigned spouse or registered domestic partner of the Taxpayer joins in this election.
-
-<br />
-
-Spouse's Signature: ________________________ Date: {{spouse-sign-date}}
-{{/if}}
+Taxpayer Signature: ________________________{{#if has-spouse == true}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse's Signature: ________________________{{/if}}

@@ -13,22 +13,18 @@ VIA CERTIFIED MAIL
 
 **Re: Election under Section 83(b) of the Internal Revenue Code of 1986**
 
-- Taxpayer: {{person-name}} (SSN: {{person-ssn}})
-{{#if has-spouse == true}}
-- Taxpayer’s Spouse: {{spouse-name}} (SSN: {{spouse-ssn}})
-{{/if}}
+Social security number: {{person-ssn}}
 
 <br />
 
-Ladies and Gentlemen:
+To Whom It May Concern:
 
 For filing with the Internal Revenue Service, please find enclosed two copies (File Copy and Acknowledgement Copy) of the document entitled Election Under Section 83(b) of the Internal Revenue Code of 1986 (the “83(b) Election”).
 
 In accordance with IRM Section 21.1.7.61, please kindly acknowledge receipt and filing of the 83(b) Election by date stamping the enclosed Acknowledgement Copy of the 83(b) Election and returning it to the undersigned in the enclosed self-addressed, postage-paid envelope. If you have any questions regarding this matter, please contact the undersigned. Thank you for your courteous assistance.
 
-Very truly yours,
+Sincerely,<br />{{person-name}}
 
-<br/>
 <br/>
 
 Signature: ________________________

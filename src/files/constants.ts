@@ -45,13 +45,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
   {
     id: 'spouse-name',
     name: 'Spouse name',
-    description: "Name of the taxpayer's spouse or registered domestic partner",
+    placeholder: 'e.g. John Doe',
     valueType: 'string',
-    paramType: 'optional',
-    default: {
-      type: DefaultFormParamType.Value,
-      value: 'N/A',
-    },
+    paramType: 'required',
     condition: {
       'has-spouse': 'true',
     },
@@ -59,12 +55,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
   {
     id: 'spouse-address',
     name: 'Spouse address',
+    placeholder: 'e.g. 123 Main St, San Francisco, CA 94111',
     valueType: 'string',
     paramType: 'optional',
-    default: {
-      type: DefaultFormParamType.Value,
-      value: 'N/A',
-    },
     condition: {
       'has-spouse': 'true',
     },
@@ -72,13 +65,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
   {
     id: 'spouse-ssn',
     name: 'Spouse SSN',
-    description: "SSN of the taxpayer's spouse or registered domestic partner",
+    placeholder: 'e.g. 123-45-6789',
     valueType: 'string',
     paramType: 'optional',
-    default: {
-      type: DefaultFormParamType.Value,
-      value: 'N/A',
-    },
     condition: {
       'has-spouse': 'true',
     },
@@ -159,29 +148,6 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
         left: 'fmv-total-share-price',
         right: 'paid-total-share-price',
       },
-    },
-  },
-  {
-    id: 'person-sign-date',
-    name: 'Taxpayer signature date',
-    valueType: 'date',
-    paramType: 'optional',
-    default: {
-      type: DefaultFormParamType.Function,
-      function: FormParamFunction.CurrentDate,
-    },
-  },
-  {
-    id: 'spouse-sign-date',
-    name: 'Spouse signature date',
-    valueType: 'date',
-    paramType: 'optional',
-    default: {
-      type: DefaultFormParamType.Function,
-      function: FormParamFunction.CurrentDate,
-    },
-    condition: {
-      'has-spouse': 'true',
     },
   },
   {
