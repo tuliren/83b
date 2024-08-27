@@ -35,4 +35,7 @@ export interface FormParam {
   valueType: 'string' | 'number' | 'boolean' | 'date';
   paramType: 'required' | 'optional' | 'calculated';
   default?: DefaultFormParam;
+  condition?: {
+    [paramId: string]: string | number;
+  };
 }

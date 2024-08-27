@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ELECTION_PARAMS } from '@/files/constants';
 import { FormDataMap } from '@/params/common';
-import { evaluateParams } from '@/params/paramHelpers';
+import { evaluateParams, isParamConditionMet } from '@/params/paramHelpers';
 
 interface ParamsCardProps {
   formData: FormDataMap;
@@ -31,7 +31,9 @@ const ParamsCard: FC<ParamsCardProps> = ({ formData, setFormData }) => {
       description="Please fill in the details below to generate your 83(b) election form."
     >
       <form className="space-y-4">
-        {ELECTION_PARAMS.filter((param) => param.paramType !== 'calculated').map((param) => {
+        {ELECTION_PARAMS.filter(
+          (param) => param.paramType !== 'calculated' && isParamConditionMet(formData, param.condition ?? {})
+        ).map((param) => {
           switch (param.valueType) {
             case 'string':
             case 'number':

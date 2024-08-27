@@ -52,6 +52,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
       type: DefaultFormParamType.Value,
       value: 'N/A',
     },
+    condition: {
+      'has-spouse': 'true',
+    },
   },
   {
     id: 'spouse-address',
@@ -61,6 +64,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Value,
       value: 'N/A',
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {
@@ -72,6 +78,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Value,
       value: 'N/A',
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {
@@ -170,6 +179,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Function,
       function: FormParamFunction.CurrentDate,
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {

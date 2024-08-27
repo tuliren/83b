@@ -30,6 +30,15 @@ export const getInitialParams = (formParams: FormParam[]): FormDataMap => {
   }, {} as FormDataMap);
 };
 
+export const isParamConditionMet = (formData: FormDataMap, condition: Record<string, string | number>): boolean => {
+  return Object.entries(condition).every(([paramId, value]) => {
+    if (paramId in formData) {
+      return formData[paramId] === value.toString();
+    }
+    return false;
+  });
+};
+
 export const evaluateParams = (formData: FormDataMap, formParams: FormParam[]): FormDataMap => {
   return formParams.reduce(
     (acc, param) => {
@@ -47,10 +56,12 @@ export const sortFormParamsByDependencies = (formParams: FormParam[]): FormParam
   const dependencyGraph: Record<string, string[]> = {};
 
   formParams.forEach((param) => {
+    dependencyGraph[param.id] = [];
     if (param.paramType === 'calculated' && param.default?.type === DefaultFormParamType.Formula) {
-      dependencyGraph[param.id] = extractDependencies(param.default.operation);
-    } else {
-      dependencyGraph[param.id] = [];
+      dependencyGraph[param.id].push(...extractOperationDependencies(param.default.operation));
+    }
+    if (param.condition != null) {
+      dependencyGraph[param.id].push(...extractConditionDependencies(param.condition));
     }
   });
 
@@ -77,14 +88,14 @@ export const sortFormParamsByDependencies = (formParams: FormParam[]): FormParam
   return sortedParams;
 };
 
-const extractDependencies = (operation: Operation): string[] => {
+const extractOperationDependencies = (operation: Operation): string[] => {
   const dependencies: string[] = [];
 
   const visitOperand = (operand: Operation | number | string) => {
     if (typeof operand === 'string') {
       dependencies.push(operand);
     } else if (typeof operand !== 'number') {
-      dependencies.push(...extractDependencies(operand));
+      dependencies.push(...extractOperationDependencies(operand));
     }
   };
 
@@ -94,4 +105,8 @@ const extractDependencies = (operation: Operation): string[] => {
   }
 
   return dependencies;
+};
+
+const extractConditionDependencies = (condition: Record<string, string | number>): string[] => {
+  return Object.keys(condition);
 };
