@@ -3,6 +3,7 @@ import { FC } from 'react';
 import BaseCard from '@/components/app/BaseCard';
 import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
+import { processMarkdown } from '@/params/contentHelpers';
 
 interface ContentCardProps {
   title: string;
@@ -11,16 +12,7 @@ interface ContentCardProps {
 }
 
 const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
-  const replacePlaceholders = (text: string, data: FormDataMap): string => {
-    return text.replace(/{{(.*?)}}/g, (_, key) => {
-      const trimmedKey = key.trim();
-      return data?.[trimmedKey] != null && data[trimmedKey] !== ''
-        ? String(data[trimmedKey]).trim()
-        : `{{${trimmedKey}}}`;
-    });
-  };
-
-  const processedContent = replacePlaceholders(content, formData);
+  const processedContent = processMarkdown(content, formData);
 
   return (
     <BaseCard title={title}>

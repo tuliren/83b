@@ -14,7 +14,9 @@ VIA CERTIFIED MAIL
 **Re: Election under Section 83(b) of the Internal Revenue Code of 1986**
 
 - Taxpayer: {{person-name}} (SSN: {{person-ssn}})
+{{#if has-spouse == true}}
 - Taxpayer’s Spouse: {{spouse-name}} (SSN: {{spouse-ssn}})
+{{/if}}
 
 <br />
 

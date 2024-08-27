@@ -7,10 +7,12 @@ The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Interna
     - Address: **{{person-address}}**
     - SSN: **{{person-ssn}}**
 
+{{#if has-spouse == true}}
 2. The name, address and taxpayer identification number of the Taxpayer's spouse/registered domestic partner are:
     - Name: **{{spouse-name}}**
     - Address: **{{spouse-address}}**
     - SSN: **{{spouse-ssn}}**
+{{/if}}
 
 3. Description of the property with respect to which the election is being made: **{{share-number}}** Shares of the Company.
 
@@ -35,8 +37,10 @@ Taxpayer Signature: ________________________ Date: {{person-sign-date}}
 
 <br />
 
+{{#if has-spouse == true}}
 The undersigned spouse or registered domestic partner of the Taxpayer joins in this election.
 
 <br />
 
 Spouse's Signature: ________________________ Date: {{spouse-sign-date}}
+{{/if}}

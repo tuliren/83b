@@ -6,27 +6,41 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
   {
     id: 'company-name',
     name: 'Company name',
+    placeholder: 'e.g. Acme Inc.',
     valueType: 'string',
     paramType: 'required',
   },
   {
     id: 'person-name',
     name: 'Taxpayer name',
+    placeholder: 'e.g. John Doe',
     valueType: 'string',
     paramType: 'required',
   },
   {
     id: 'person-address',
     name: 'Taxpayer address',
+    placeholder: 'e.g. 123 Main St, San Francisco, CA 94111',
     valueType: 'string',
     paramType: 'required',
   },
   {
     id: 'person-ssn',
     name: 'Taxpayer SSN',
+    placeholder: 'e.g. 123-45-6789',
     description: 'Your SSN is not stored, and never leaves the browser',
     valueType: 'string',
     paramType: 'required',
+  },
+  {
+    id: 'has-spouse',
+    name: 'Has spouse',
+    valueType: 'boolean',
+    paramType: 'optional',
+    default: {
+      type: DefaultFormParamType.Value,
+      value: 'false',
+    },
   },
   {
     id: 'spouse-name',
@@ -38,6 +52,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
       type: DefaultFormParamType.Value,
       value: 'N/A',
     },
+    condition: {
+      'has-spouse': 'true',
+    },
   },
   {
     id: 'spouse-address',
@@ -47,6 +64,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Value,
       value: 'N/A',
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {
@@ -58,6 +78,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Value,
       value: 'N/A',
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {
@@ -156,6 +179,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     default: {
       type: DefaultFormParamType.Function,
       function: FormParamFunction.CurrentDate,
+    },
+    condition: {
+      'has-spouse': 'true',
     },
   },
   {
