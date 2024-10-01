@@ -13194,14 +13194,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-plausible@npm:^3.12.0":
-  version: 3.12.0
-  resolution: "next-plausible@npm:3.12.0"
+"next-plausible@npm:^3.12.2":
+  version: 3.12.2
+  resolution: "next-plausible@npm:3.12.2"
   peerDependencies:
     next: ^11.1.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 0894d81e7decb2dda6f9aee66b663ed4264533d2b21b86ffcecbb5ac471b56064506c4d34d07a4f59b26a75df53c6b9ec7f39554f1da920c9e013d4d9f6178e3
+  checksum: eba52d73ddd849c79e26c63920e40a5267f00f4373d76c06b232aa40499c20c190982fd6aed0587e36b712d28bd4343698af3bd094dd0705580471023388c8ff
   languageName: node
   linkType: hard
 
@@ -13335,7 +13335,7 @@ __metadata:
     jest-html-reporter: "npm:^3.10.2"
     lint-staged: "npm:^15.2.7"
     next: "npm:14.1.4"
-    next-plausible: "npm:^3.12.0"
+    next-plausible: "npm:^3.12.2"
     next-sitemap: "npm:^4.2.3"
     postcss: "npm:^8.4.41"
     postcss-preset-mantine: "npm:^1.15.0"
