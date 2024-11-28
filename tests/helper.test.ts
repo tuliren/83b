@@ -1,5 +1,3 @@
-import { expect, test } from '@jest/globals';
-
 import { add } from '@/helper';
 
 test('add', () => {
