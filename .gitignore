@@ -132,7 +132,7 @@ dist
 !.yarn/versions
 
 # Jest
-tests/test-report.html
+test-report.html
 
 # Storybook
 storybook-static/
