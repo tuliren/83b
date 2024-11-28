@@ -2,7 +2,7 @@ module.exports = {
   testTimeout: 30000,
   clearMocks: true,
   moduleFileExtensions: ['js', 'ts'],
-  testMatch: ['**/tests/**/*.test.ts'],
+  testMatch: ['**/*.test.ts'],
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
@@ -16,7 +16,7 @@ module.exports = {
     [
       'jest-html-reporter',
       {
-        outputPath: 'tests/test-report.html',
+        outputPath: 'src/__tests__/test-report.html',
       },
     ],
   ],
