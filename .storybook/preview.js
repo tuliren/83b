@@ -2,6 +2,8 @@ import { MantineProvider } from '@mantine/core';
 
 import '@mantine/core/styles.css';
 
+import '../styles/globals.css';
+
 export const parameters = {
   controls: {
     matchers: {

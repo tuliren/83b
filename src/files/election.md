@@ -2,7 +2,7 @@
 
 The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Internal Revenue Code of 1986, as amended, to include in taxpayer's gross income for the current taxable year the amount of any compensation taxable to taxpayer in connection with taxpayer's receipt of shares (the "<ins>Shares</ins>") of Common Stock of **{{company-name}}** (the "<ins>Company</ins>").
 
-1. The name, address and taxpayer identification number of the undersigned taxpayer are: 
+1. The name, address and taxpayer identification number of the undersigned taxpayer are:
     - Name: **{{person-name}}** 
     - Address: **{{person-address}}**
     - SSN: **{{person-ssn}}**

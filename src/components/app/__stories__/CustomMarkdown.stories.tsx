@@ -24,6 +24,15 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 ##### Level 5 title
 ###### Level 6 title
 
+## Lists
+1. First
+2. Second
+3. Third
+   - Sublist 1
+   - Sublist 2
+      - Sublist 2.1
+      - Sublist 2.2
+
 ## TODOs
 - [ ] Task 1
 - [ ] Task 2
