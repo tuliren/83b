@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-app-template",
+  "name": "83b-page",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,7 +13,10 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx,js,cjs,json}\" --loglevel=warn",
     "prepare": "husky",
     "storybook": "storybook dev",
-    "build-storybook": "storybook build",
+    "build:storybook": "storybook build",
+    "docker:build": "docker build -t 83b-page .",
+    "docker:run": "docker run -p 3000:3000 -d 83b-page",
+    "docker:stop": "docker stop $(docker ps -a -q --filter ancestor=83b-page)",
     "script": "npx ts-node",
     "test": "jest --coverage"
   },

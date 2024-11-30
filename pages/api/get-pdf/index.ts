@@ -16,6 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     browser = await launch({
       headless: true,
+      args: process.env.IN_DOCKER === 'true' ? ['--no-sandbox', '--disable-setuid-sandbox'] : [],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     });
 
     const page = await browser.newPage();
