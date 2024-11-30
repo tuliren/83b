@@ -1,38 +1,34 @@
-import { FC, Fragment } from 'react';
-import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { FC, Fragment, ReactNode } from 'react';
+import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import type { RootContent, Root } from 'mdast';
 
-Font.register({
-  family: 'Inter',
-  src: 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2',
-});
-
 const styles = StyleSheet.create({
   page: {
     padding: 40,
-    fontFamily: 'Inter',
+    fontFamily: 'Helvetica',
     fontSize: 12,
   },
   h1: {
     fontSize: 32,
     fontWeight: 'bold',
     marginVertical: 16,
+    fontFamily: 'Helvetica-Bold',
   },
   h2: {
     fontSize: 24,
-    fontWeight: 'semibold',
     marginVertical: 12,
     paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
+    fontFamily: 'Helvetica-Bold',
   },
   h3: {
     fontSize: 20,
-    fontWeight: 'semibold',
     marginVertical: 10,
+    fontFamily: 'Helvetica-Bold',
   },
   paragraph: {
     marginVertical: 8,
@@ -63,11 +59,17 @@ const styles = StyleSheet.create({
   tableHeader: {
     backgroundColor: '#f9fafb',
     padding: 8,
-    fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold',
   },
   tableCell: {
     padding: 8,
     flex: 1,
+  },
+  strong: {
+    fontFamily: 'Helvetica-Bold',
+  },
+  emphasis: {
+    fontFamily: 'Helvetica-Oblique',
   },
 });
 
@@ -75,7 +77,7 @@ interface MarkdownPdfProps {
   text: string;
 }
 
-const renderNode = (node: RootContent): React.ReactNode => {
+const renderNode = (node: RootContent): ReactNode => {
   switch (node.type) {
     case 'heading':
       const HeadingStyle = styles[`h${node.depth}` as keyof typeof styles];
@@ -140,7 +142,7 @@ const renderNode = (node: RootContent): React.ReactNode => {
 
     case 'strong':
       return (
-        <Text style={{ fontWeight: 'bold' }}>
+        <Text style={styles.strong}>
           {(node.children as RootContent[]).map((child, i) => (
             <Fragment key={i}>{renderNode(child)}</Fragment>
           ))}
@@ -149,7 +151,7 @@ const renderNode = (node: RootContent): React.ReactNode => {
 
     case 'emphasis':
       return (
-        <Text style={{ fontStyle: 'italic' }}>
+        <Text style={styles.emphasis}>
           {(node.children as RootContent[]).map((child, i) => (
             <Fragment key={i}>{renderNode(child)}</Fragment>
           ))}
