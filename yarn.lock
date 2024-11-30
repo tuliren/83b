@@ -4099,24 +4099,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^3.3.0":
-  version: 3.23.0
-  resolution: "@tabler/icons-react@npm:3.23.0"
-  dependencies:
-    "@tabler/icons": "npm:3.23.0"
-  peerDependencies:
-    react: ">= 16"
-  checksum: 828ed76d1aa787d53d7c1fca0f7e5e93d15fc6d81ed816734d2fb85318cc651878334547cdb2f7d82b26ac559d3bf57f3dfcb374ffe6365380862b89eb216367
-  languageName: node
-  linkType: hard
-
-"@tabler/icons@npm:3.23.0":
-  version: 3.23.0
-  resolution: "@tabler/icons@npm:3.23.0"
-  checksum: 7673eaf64d52ec8934f224536df01468cbe225c18df6037268d2246df093a1e652037916850137d48c5b7c7398b3fce6a857b2a65a393e106b9e666dfc609430
-  languageName: node
-  linkType: hard
-
 "@tanstack/react-virtual@npm:^3.8.1":
   version: 3.10.9
   resolution: "@tanstack/react-virtual@npm:3.10.9"
@@ -11208,7 +11190,6 @@ __metadata:
     "@storybook/nextjs": "npm:^8.4.1"
     "@storybook/react": "npm:^8.4.1"
     "@storybook/test": "npm:^8.4.1"
-    "@tabler/icons-react": "npm:^3.3.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:22.7.4"

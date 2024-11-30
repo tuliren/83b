@@ -5,13 +5,13 @@ import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
 import { Button } from '../ui/button';
-import { IconLoader2 } from '@tabler/icons-react';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 const PdfDownload = dynamic(() => import('@/components/app/PdfDownload'), {
   ssr: false,
   loading: () => (
     <Button disabled>
-      <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+      <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
       Loading PDF generator...
     </Button>
   ),

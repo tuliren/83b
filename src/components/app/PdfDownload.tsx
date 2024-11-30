@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Button } from '../ui/button';
-import { IconLoader2 } from '@tabler/icons-react';
 import MarkdownPdf from './MarkdownPdf';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 interface PdfDownloadProps {
   content: string;
@@ -28,7 +28,7 @@ const PdfDownload: FC<PdfDownloadProps> = ({ content, title }) => {
         >
           {loading ? (
             <>
-              <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+              <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
               Generating...
             </>
           ) : error ? (
