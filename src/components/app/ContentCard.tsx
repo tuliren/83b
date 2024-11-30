@@ -18,7 +18,7 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
 
   return (
     <BaseCard title={title}>
-      <Tabs defaultValue="text" className="w-full">
+      <Tabs defaultValue="text" className="w-full flex flex-col gap-2">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="text">Text</TabsTrigger>
           <TabsTrigger value="pdf">PDF</TabsTrigger>
