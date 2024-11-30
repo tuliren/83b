@@ -1,21 +1,10 @@
 import { FC, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import BaseCard from '@/components/app/BaseCard';
 import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
-import { Button } from '../ui/button';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
-
-const PdfDownload = dynamic(() => import('@/components/app/PdfDownload'), {
-  ssr: false,
-  loading: () => (
-    <Button disabled>
-      <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
-      Loading PDF generator...
-    </Button>
-  ),
-});
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import PdfViewer from '@/components/app/PdfViewer';
 
 interface ContentCardProps {
   title: string;
@@ -29,11 +18,24 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
 
   return (
     <BaseCard title={title}>
-      <div className="flex justify-start mb-4">
-        <PdfDownload content={processedContent} title={title} />
-      </div>
+      <Tabs defaultValue="text" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="text">Text</TabsTrigger>
+          <TabsTrigger value="pdf">PDF</TabsTrigger>
+        </TabsList>
 
-      <CustomMarkdown containerRef={contentRef} text={processedContent} textClassNames={['text-sm', 'text-gray-700']} />
+        <TabsContent value="text">
+          <CustomMarkdown
+            containerRef={contentRef}
+            content={processedContent}
+            textClassNames={['text-sm', 'text-gray-700']}
+          />
+        </TabsContent>
+
+        <TabsContent value="pdf">
+          <PdfViewer content={processedContent} />
+        </TabsContent>
+      </Tabs>
     </BaseCard>
   );
 };

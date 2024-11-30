@@ -8,12 +8,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 
 interface CustomMarkdownProps {
-  text: string;
+  content: string;
   textClassNames?: string[];
   containerRef?: RefObject<HTMLDivElement>;
 }
 
-const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ text, textClassNames, containerRef }) => {
+const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames, containerRef }) => {
   const defaultRef = useRef<HTMLDivElement>(null);
   const targetRef = containerRef || defaultRef;
 
@@ -63,7 +63,7 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ text, textClassNames, co
           [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
         ]}
       >
-        {text}
+        {content}
       </ReactMarkdown>
     </div>
   );
