@@ -4,6 +4,7 @@ import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
 import ViewPdfButton from '@/components/app/ViewPdfButton';
+import DownloadPdfButton from '@/components/app/DownloadPdfButton';
 
 interface ContentCardProps {
   title: string;
@@ -17,8 +18,9 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
 
   return (
     <BaseCard title={title}>
-      <div className="flex justify-start mb-4">
-        <ViewPdfButton markdown={processedContent} variant="outline" />
+      <div className="flex justify-start mb-4 gap-2">
+        <ViewPdfButton markdown={processedContent} variant="outline" size="sm" />
+        <DownloadPdfButton markdown={processedContent} variant="outline" size="sm" />
       </div>
 
       <CustomMarkdown containerRef={contentRef} text={processedContent} textClassNames={['text-sm', 'text-gray-700']} />

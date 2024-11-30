@@ -17,10 +17,7 @@ const ViewPdfButton: FC<ViewPdfButtonProps> = ({ markdown, className, variant = 
     try {
       setIsGenerating(true);
 
-      // Store markdown in localStorage and get ID
       const id = clientStorage.store(markdown);
-
-      // Open PDF viewer in new tab
       window.open(`/pdf-view/${id}`, '_blank');
     } catch (error) {
       console.error('Error viewing PDF:', error);
@@ -32,7 +29,7 @@ const ViewPdfButton: FC<ViewPdfButtonProps> = ({ markdown, className, variant = 
   return (
     <Button onClick={handleViewPdf} disabled={isGenerating} className={className} variant={variant} size={size}>
       <DocumentMagnifyingGlassIcon className="h-4 w-4 mr-2" />
-      {isGenerating ? 'Opening PDF...' : 'View PDF'}
+      {isGenerating ? 'Opening...' : 'Preview'}
     </Button>
   );
 };

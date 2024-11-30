@@ -6,13 +6,10 @@ import Head from 'next/head';
 const PdfRenderer = () => {
   const router = useRouter();
   const [content, setContent] = useState('');
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (router.query.content) {
       setContent(decodeURIComponent(router.query.content as string));
-      // Give time for styles to be applied
-      setTimeout(() => setIsReady(true), 5000);
     }
   }, [router.query]);
 
@@ -70,7 +67,7 @@ const PdfRenderer = () => {
           }
         `}</style>
       </Head>
-      <main className="min-h-screen bg-white p-10" data-pdf-content={isReady ? 'ready' : 'loading'}>
+      <main className="min-h-screen bg-white p-10" data-pdf-content={content.length > 0 ? 'ready' : 'loading'}>
         <div className="max-w-none prose prose-slate">
           <CustomMarkdown text={content} />
         </div>

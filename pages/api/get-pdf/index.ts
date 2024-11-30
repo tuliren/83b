@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import puppeteer from 'puppeteer';
+import { launch } from 'puppeteer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -8,13 +8,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   let browser;
   try {
-    const { markdown, download } = req.body;
+    const { markdown } = req.body;
 
     if (!markdown) {
       return res.status(400).json({ message: 'Markdown content is required' });
     }
 
-    browser = await puppeteer.launch({
+    browser = await launch({
       headless: true,
     });
 
