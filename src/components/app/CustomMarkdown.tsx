@@ -1,4 +1,3 @@
-import { List, Table, Text } from '@mantine/core';
 import { FC, memo, RefObject, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -6,7 +5,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import { Margin, Options, Resolution } from 'react-to-pdf';
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 
 interface CustomMarkdownProps {
@@ -35,33 +34,43 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ text, textClassNames, co
   const targetRef = containerRef || defaultRef;
 
   return (
-    <div ref={targetRef}>
+    <div ref={targetRef} className="prose dark:prose-invert max-w-none">
       <ReactMarkdown
         components={{
-          p: (props) => <Text className={cn('mt-3', textClassNames)}>{props.children}</Text>,
-          ol: (props) => (
-            <List type="ordered" className="list-decimal mt-3">
-              {props.children}
-            </List>
+          h1: ({ children }) => (
+            <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl mt-6 first:mt-0">{children}</h1>
           ),
-          ul: (props) => <List className="list-none list-inside mt-3">{props.children}</List>,
-          li: (props) => <List.Item className={cn(textClassNames)}>{props.children}</List.Item>,
-          table: (props) => (
-            <Table
-              highlightOnHover
-              withColumnBorders
-              withTableBorder
-              className={props.className}
-              {...props.node?.properties}
-            >
-              {props.children}
-            </Table>
+          h2: ({ children }) => (
+            <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mt-4 first:mt-0">
+              {children}
+            </h2>
           ),
-          thead: (props) => <Table.Thead className={props.className}>{props.children}</Table.Thead>,
-          tbody: (props) => <Table.Tbody className={props.className}>{props.children}</Table.Tbody>,
-          tr: (props) => <Table.Tr className={props.className}>{props.children}</Table.Tr>,
-          td: (props) => <Table.Td className={props.className}>{props.children}</Table.Td>,
-          th: (props) => <Table.Th className={props.className}>{props.children}</Table.Th>,
+          h3: ({ children }) => (
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mt-3 first:mt-0">{children}</h3>
+          ),
+          h4: ({ children }) => (
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-2 first:mt-0">{children}</h4>
+          ),
+          h5: ({ children }) => (
+            <h5 className="scroll-m-20 text-lg font-semibold tracking-tight mt-1 first:mt-0">{children}</h5>
+          ),
+          h6: ({ children }) => (
+            <h6 className="scroll-m-20 text-base font-semibold tracking-tight mt-0.5 first:mt-0">{children}</h6>
+          ),
+          p: ({ children }) => <p className={cn('mt-3 leading-7', textClassNames)}>{children}</p>,
+          ol: ({ children }) => <ol className="list-decimal pl-6">{children}</ol>,
+          ul: ({ children }) => <ul className="list-disc pl-6">{children}</ul>,
+          li: ({ children }) => <li className={cn('leading-7', textClassNames)}>{children}</li>,
+          table: ({ children }) => (
+            <div className="mb-2 w-full overflow-y-auto">
+              <Table>{children}</Table>
+            </div>
+          ),
+          thead: ({ children }) => <TableHeader>{children}</TableHeader>,
+          tbody: ({ children }) => <TableBody>{children}</TableBody>,
+          tr: ({ children }) => <TableRow>{children}</TableRow>,
+          td: ({ children }) => <TableCell>{children}</TableCell>,
+          th: ({ children }) => <TableHead className="h-12">{children}</TableHead>,
         }}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[
