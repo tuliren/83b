@@ -36,7 +36,7 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
 
   return (
     <BaseCard title={title}>
-      <div className="flex justify-start">
+      <div className="flex justify-start mb-4">
         <Button disabled={isGenerating} onClick={handleDownload}>
           {isGenerating ? 'Generating...' : 'Download as PDF'}
         </Button>
