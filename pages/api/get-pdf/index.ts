@@ -2,26 +2,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import puppeteer from 'puppeteer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Accept both GET and POST requests
-  if (req.method !== 'GET' && req.method !== 'POST') {
+  if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   let browser;
   try {
-    // Get markdown from query param for GET requests, body for POST requests
-    let markdown: string | undefined;
-    if (req.method === 'GET') {
-      markdown = req.query.markdown as string;
-    } else {
-      markdown = req.body.markdown;
-    }
+    const { markdown, download } = req.body;
 
     if (!markdown) {
       return res.status(400).json({ message: 'Markdown content is required' });
     }
-
-    const download = req.query.download === 'true';
 
     browser = await puppeteer.launch({
       headless: true,
@@ -34,15 +25,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const baseUrl = `${protocol}://${host}`;
 
     const url = `${baseUrl}/pdf-renderer?content=${encodeURIComponent(markdown)}`;
+
     await page.goto(url, {
       waitUntil: 'networkidle0',
+      timeout: 30000,
     });
 
-    await page.waitForSelector('[data-pdf-content="ready"]', { timeout: 5000 });
-
-    await page.screenshot({
-      path: './logs/debug-screenshot.png',
-      fullPage: true,
+    await page.waitForSelector('[data-pdf-content="ready"]', {
+      timeout: 10000,
     });
 
     const pdf = await page.pdf({
@@ -58,15 +48,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Length', pdf.length);
-
-    if (download) {
-      res.setHeader('Content-Disposition', 'attachment; filename="document.pdf"');
-    } else {
-      res.setHeader('Content-Disposition', 'inline; filename="document.pdf"');
-    }
-
-    res.send(pdf);
+    res.setHeader('Content-Length', pdf.length.toString());
+    res.setHeader('Content-Encoding', 'identity');
+    res.status(200).send(Buffer.from(pdf));
   } catch (error) {
     console.error('PDF generation error:', error);
     res.status(500).json({

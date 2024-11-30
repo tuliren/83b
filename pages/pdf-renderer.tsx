@@ -12,7 +12,7 @@ const PdfRenderer = () => {
     if (router.query.content) {
       setContent(decodeURIComponent(router.query.content as string));
       // Give time for styles to be applied
-      setTimeout(() => setIsReady(true), 1000);
+      setTimeout(() => setIsReady(true), 5000);
     }
   }, [router.query]);
 
