@@ -14,9 +14,10 @@
     "prepare": "husky",
     "storybook": "storybook dev",
     "build:storybook": "storybook build",
-    "docker:build": "docker build -t 83b-page .",
-    "docker:run": "docker run -p 3000:3000 -d 83b-page",
-    "docker:stop": "docker stop $(docker ps -a -q --filter ancestor=83b-page)",
+    "d:build": "docker build -t 83b-page .",
+    "d:run": "docker run -p 3000:3000 -d 83b-page",
+    "d:logs": "docker logs -n10 -f $(docker ps -q --filter ancestor=83b-page)",
+    "d:stop": "docker stop $(docker ps -a -q --filter ancestor=83b-page)",
     "script": "npx ts-node",
     "test": "jest --coverage"
   },

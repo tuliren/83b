@@ -34,4 +34,7 @@ COPY --chown=pptruser:pptruser .yarn .yarn
 RUN yarn install
 RUN yarn build
 
+ENV NEXT_RUNTIME_LOG_LEVEL=debug
+ENV NODE_ENV=production
+
 CMD ["yarn", "start"]
