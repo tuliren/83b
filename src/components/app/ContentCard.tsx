@@ -6,6 +6,7 @@ import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
 import { Button } from '../ui/button';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import DownloadPdfButton from '@/components/app/DownloadPdfButton';
 
 const PdfDownload = dynamic(() => import('@/components/app/PdfDownload'), {
   ssr: false,
@@ -32,6 +33,8 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
       <div className="flex justify-start mb-4">
         <PdfDownload content={processedContent} title={title} />
       </div>
+
+      <DownloadPdfButton markdown={processedContent} />
 
       <CustomMarkdown containerRef={contentRef} text={processedContent} textClassNames={['text-sm', 'text-gray-700']} />
     </BaseCard>
