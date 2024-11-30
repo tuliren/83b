@@ -1,9 +1,4 @@
-import { MantineProvider } from '@mantine/core';
-
-import '@mantine/core/styles.css';
-
 import '../styles/globals.css';
-import '../styles/tailwind.css';
 
 export const parameters = {
   controls: {
@@ -17,10 +12,6 @@ export const tags = ['autodocs'];
 
 export const decorators = [
   (Story, context) => {
-    return (
-      <MantineProvider>
-        <Story />
-      </MantineProvider>
-    );
+    return <Story />;
   },
 ];
