@@ -4,7 +4,6 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
-import { Margin, Options, Resolution } from 'react-to-pdf';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 
@@ -13,21 +12,6 @@ interface CustomMarkdownProps {
   textClassNames?: string[];
   containerRef?: RefObject<HTMLDivElement>;
 }
-
-export const DEFAULT_PDF_OPTIONS: Options = {
-  method: 'open',
-  resolution: Resolution.HIGH,
-  page: {
-    margin: Margin.MEDIUM,
-    format: 'letter',
-    orientation: 'portrait',
-  },
-  canvas: {
-    mimeType: 'image/png',
-    qualityRatio: 1,
-    useCORS: true,
-  },
-};
 
 const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ text, textClassNames, containerRef }) => {
   const defaultRef = useRef<HTMLDivElement>(null);
