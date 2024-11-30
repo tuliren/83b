@@ -1,11 +1,21 @@
-import { FC, useRef, useState } from 'react';
-
+import { FC, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import BaseCard from '@/components/app/BaseCard';
-import CustomMarkdown, { DEFAULT_PDF_OPTIONS } from '@/components/app/CustomMarkdown';
+import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
-import generatePDF from 'react-to-pdf';
 import { Button } from '../ui/button';
+import { IconLoader2 } from '@tabler/icons-react';
+
+const PdfDownload = dynamic(() => import('@/components/app/PdfDownload'), {
+  ssr: false,
+  loading: () => (
+    <Button disabled>
+      <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+      Loading PDF generator...
+    </Button>
+  ),
+});
 
 interface ContentCardProps {
   title: string;
@@ -16,30 +26,11 @@ interface ContentCardProps {
 const ContentCard: FC<ContentCardProps> = ({ title, content, formData }) => {
   const processedContent = processMarkdown(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const handleDownload = async () => {
-    if (contentRef.current) {
-      try {
-        setIsGenerating(true);
-        await generatePDF(contentRef, {
-          filename: 'document.pdf',
-          ...DEFAULT_PDF_OPTIONS,
-        });
-      } catch (error) {
-        console.error('Error generating PDF:', error);
-      } finally {
-        setIsGenerating(false);
-      }
-    }
-  };
 
   return (
     <BaseCard title={title}>
       <div className="flex justify-start mb-4">
-        <Button disabled={isGenerating} onClick={handleDownload}>
-          {isGenerating ? 'Generating...' : 'Download as PDF'}
-        </Button>
+        <PdfDownload content={processedContent} title={title} />
       </div>
 
       <CustomMarkdown containerRef={contentRef} text={processedContent} textClassNames={['text-sm', 'text-gray-700']} />
