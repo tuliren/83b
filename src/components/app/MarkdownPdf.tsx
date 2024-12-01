@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import type { Root, RootContent } from 'mdast';
 import remarkRehype from 'remark-rehype';
+import rehypeSanitize from 'rehype-sanitize';
+import rehypeStringify from 'rehype-stringify';
 
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';
@@ -193,7 +195,7 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
     }
 
     case 'html': {
-      if (node.value.trim() === '<br />') {
+      if (node.value.trim().startsWith('<br')) {
         return <Text style={styles.paragraph}>{'\n'}</Text>;
       }
       return node.value;
@@ -236,10 +238,14 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
 
 const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
   const processor = unified()
-    .use(remarkParse) // parse Markdown into MDAST
+    // remark processes markdown
+    .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true }) // convert to HAST
-    .use(rehypeRaw); // process raw HTML (e.g., <br />)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    // rehype processes html
+    .use(rehypeRaw)
+    .use(rehypeSanitize)
+    .use(rehypeStringify);
   const ast = processor.parse(text) as Root;
 
   return (
