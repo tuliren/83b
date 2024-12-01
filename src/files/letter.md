@@ -25,11 +25,11 @@ In accordance with IRM Section 21.1.7.61, please kindly acknowledge receipt and 
 
 Sincerely,<br />{{person-name}}
 
-<br/>
+<br />
 
 Signature: ________________________
 
-<br/>
+<br />
 
 <ins>Enclosures</ins>:
 

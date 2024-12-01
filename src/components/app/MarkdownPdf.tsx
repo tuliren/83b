@@ -3,7 +3,9 @@ import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
-import type { RootContent, Root } from 'mdast';
+import rehypeRaw from 'rehype-raw';
+import type { Root, RootContent } from 'mdast';
+import remarkRehype from 'remark-rehype';
 
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';
@@ -116,7 +118,7 @@ interface MarkdownPdfProps {
 
 const renderNode = (node: RootContent, parentType?: string): ReactNode => {
   switch (node.type) {
-    case 'heading':
+    case 'heading': {
       const HeadingStyle = styles[`h${node.depth}` as keyof typeof styles];
       return (
         <Text style={HeadingStyle}>
@@ -125,8 +127,9 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </Text>
       );
+    }
 
-    case 'paragraph':
+    case 'paragraph': {
       return (
         <Text style={styles.paragraph}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -134,8 +137,9 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </Text>
       );
+    }
 
-    case 'list':
+    case 'list': {
       return (
         <View style={styles.list}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -146,13 +150,15 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </View>
       );
+    }
 
-    case 'listItem':
+    case 'listItem': {
       return (node.children as RootContent[]).map((child, i) => (
         <Fragment key={i}>{renderNode(child, 'listItem')}</Fragment>
       ));
+    }
 
-    case 'table':
+    case 'table': {
       return (
         <View style={styles.table}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -160,8 +166,9 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </View>
       );
+    }
 
-    case 'tableRow':
+    case 'tableRow': {
       return (
         <View style={styles.tableRow}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -169,8 +176,9 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </View>
       );
+    }
 
-    case 'tableCell':
+    case 'tableCell': {
       return (
         <Text style={parentType === 'tableHeader' ? styles.tableHeader : styles.tableCell}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -178,11 +186,24 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </Text>
       );
+    }
 
-    case 'text':
+    case 'break': {
+      return <Text style={styles.paragraph}>{'\n'}</Text>;
+    }
+
+    case 'html': {
+      if (node.value.trim() === '<br />') {
+        return <Text style={styles.paragraph}>{'\n'}</Text>;
+      }
       return node.value;
+    }
 
-    case 'strong':
+    case 'text': {
+      return node.value;
+    }
+
+    case 'strong': {
       return (
         <Text style={styles.strong}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -190,8 +211,9 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </Text>
       );
+    }
 
-    case 'emphasis':
+    case 'emphasis': {
       return (
         <Text style={styles.emphasis}>
           {(node.children as RootContent[]).map((child, i) => (
@@ -199,19 +221,25 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
           ))}
         </Text>
       );
+    }
 
-    default:
+    default: {
       if ((node as any).children) {
         return ((node as any).children as RootContent[]).map((child, i) => (
           <Fragment key={i}>{renderNode(child)}</Fragment>
         ));
       }
       return null;
+    }
   }
 };
 
 const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
-  const processor = unified().use(remarkParse).use(remarkGfm);
+  const processor = unified()
+    .use(remarkParse) // parse Markdown into MDAST
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true }) // convert to HAST
+    .use(rehypeRaw); // process raw HTML (e.g., <br />)
   const ast = processor.parse(text) as Root;
 
   return (

@@ -14,6 +14,8 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 ##### Level 5 title
 ###### Level 6 title
 
+<br />
+
 ## Lists
 1. First
 2. Second
