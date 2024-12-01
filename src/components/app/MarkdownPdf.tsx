@@ -12,8 +12,8 @@ import rehypeStringify from 'rehype-stringify';
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';
 const ITALIC_FONT = 'Helvetica-Oblique';
-const LINE_HEIGHT = 1.0;
-const FONT_SIZE = 14;
+const LINE_HEIGHT = 0.9;
+const FONT_SIZE = 10;
 const PARAGRAPH_MARGIN_TOP = 10;
 
 const hyphenationCallback = (word: string) => {
@@ -261,7 +261,7 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="LETTER" style={styles.page}>
         {ast.children.map((node, i) => (
           <Fragment key={i}>{renderNode(node)}</Fragment>
         ))}
