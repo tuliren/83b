@@ -69,7 +69,7 @@ __metadata:
     next-sitemap: "npm:^4.2.3"
     postcss: "npm:^8.4.49"
     prettier: "npm:^3.3.3"
-    pretty-ms: "npm:^8.0.0"
+    pretty-ms: "npm:^9.2.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.3.1"
     react-markdown: "npm:^9.0.1"
@@ -11840,10 +11840,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-ms@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "parse-ms@npm:3.0.0"
-  checksum: 056b4a32a9d3749f3f4cfffefb45c45540491deaa8e1d8ad43c2ddde7ba04edd076bd1b298f521238bb5fb084a9b2c4a2ebb78aefa651afbc4c2b0af4232fc54
+"parse-ms@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "parse-ms@npm:4.0.0"
+  checksum: a7900f4f1ebac24cbf5e9708c16fb2fd482517fad353aecd7aefb8c2ba2f85ce017913ccb8925d231770404780df46244ea6fec598b3bde6490882358b4d2d16
   languageName: node
   linkType: hard
 
@@ -12253,12 +12253,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-ms@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "pretty-ms@npm:8.0.0"
+"pretty-ms@npm:^9.2.0":
+  version: 9.2.0
+  resolution: "pretty-ms@npm:9.2.0"
   dependencies:
-    parse-ms: "npm:^3.0.0"
-  checksum: e960d633ecca45445cf5c6dffc0f5e4bef6744c92449ab0e8c6c704800675ab71e181c5e02ece5265e02137a33e313d3f3e355fbf8ea30b4b5b23de423329f8d
+    parse-ms: "npm:^4.0.0"
+  checksum: ab6d066f90e9f77020426986e1b018369f41575674544c539aabec2e63a20fec01166d8cf6571d0e165ad11cfe5a8134a2a48a36d42ab291c59c6deca5264cbb
   languageName: node
   linkType: hard
 
