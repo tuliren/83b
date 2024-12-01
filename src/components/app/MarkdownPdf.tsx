@@ -1,5 +1,5 @@
 import { FC, Fragment, ReactNode } from 'react';
-import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
@@ -14,6 +14,13 @@ const BOLD_FONT = 'Helvetica-Bold';
 const ITALIC_FONT = 'Helvetica-Oblique';
 const LINE_HEIGHT = 1.0;
 const FONT_SIZE = 14;
+const PARAGRAPH_MARGIN_TOP = 10;
+
+const hyphenationCallback = (word: string) => {
+  return [word];
+};
+
+Font.registerHyphenationCallback(hyphenationCallback);
 
 const styles = StyleSheet.create({
   page: {
@@ -68,11 +75,11 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT,
   },
   paragraph: {
-    marginTop: 12,
+    marginTop: PARAGRAPH_MARGIN_TOP,
     lineHeight: LINE_HEIGHT,
   },
   list: {
-    marginVertical: 2,
+    marginVertical: 0,
   },
   listItemContainer: {
     flexDirection: 'row',
@@ -80,9 +87,13 @@ const styles = StyleSheet.create({
   },
   listItemContent: {
     flex: 1,
+    margin: 0,
+    padding: 0,
     paddingLeft: 2,
+    lineHeight: LINE_HEIGHT,
   },
   listItemMarker: {
+    marginTop: PARAGRAPH_MARGIN_TOP,
     paddingRight: 2,
   },
   table: {
