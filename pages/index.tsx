@@ -9,6 +9,7 @@ import ParamsCard from '@/components/app/ParamsCard';
 import { ELECTION_PARAMS } from '@/files/constants';
 import { getInitialParams } from '@/params/paramHelpers';
 import Toolbar from '@/components/app/Toolbar';
+import { cn } from '@/lib/utils';
 
 interface AppProps {
   election: string;
@@ -33,7 +34,14 @@ const App: FC<AppProps> = ({ election, letter }) => {
   const [view, setView] = useState<'text' | 'pdf'>('text');
 
   return (
-    <main className="flex flex-col justify-center min-h-screen items-center p-4 sm:p-6 md:px-36 sm:gap-6 gap-4 bg-gray-100">
+    <main
+      className={cn(
+        'flex flex-col justify-center min-h-screen items-center bg-gray-100',
+        'gap-2',
+        'p-4 sm:p-6',
+        'sm:px-8 lg:px-12 xl:px-36'
+      )}
+    >
       <p className="text-3xl font-bold">83(b) Election Generator</p>
       <p className="text-muted-foreground text-lg">(under construction)</p>
       <Toolbar view={view} onViewChange={setView} />
