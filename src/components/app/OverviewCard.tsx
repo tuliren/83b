@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import BaseCard from '@/components/app/BaseCard';
 import { CardDescription } from '@/components/ui/card';
+import Link from 'next/link';
 
 interface OverviewCardProps {}
 
@@ -16,7 +17,17 @@ const OverviewCard: FC<OverviewCardProps> = ({}) => {
         </span>
         <span>
           Please consult with a tax professional before making an 83(b) election. This tool is provided for your
-          convenience, but it is not a substitute for professional advice.
+          convenience, but it is not a substitute for professional advice. By using this project, you agree to the terms
+          and conditions of the{' '}
+          <Link
+            className="font-medium underline underline-offset-2"
+            href="https://github.com/tuliren/83b/blob/main/LICENSE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MIT License
+          </Link>
+          .
         </span>
       </CardDescription>
     </BaseCard>
