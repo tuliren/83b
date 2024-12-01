@@ -16,7 +16,6 @@
 ## Dependencies
 
 - [NextJS](https://nextjs.org/)
-- [Mantine](https://mantine.dev/)
 - [Tailwind](https://tailwindcss.com/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Vercel](https://vercel.com/)

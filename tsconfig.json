@@ -23,6 +23,6 @@
       "module": "CommonJS"
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.test.ts"],
+  "include": ["next-env.d.ts", "postcss.config.cjs", "**/*.ts", "**/*.tsx", "**/*.test.ts"],
   "exclude": ["node_modules"]
 }

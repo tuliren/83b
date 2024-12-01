@@ -25,13 +25,13 @@ In accordance with IRM Section 21.1.7.61, please kindly acknowledge receipt and 
 
 Sincerely,<br />{{person-name}}
 
-<br/>
+<br />
 
 Signature: ________________________
 
-<br/>
+<br />
 
-<ins>Enclosures</ins>:
+*Enclosures*:
 
 1. 83(b) Election File Copy (Copy 1): for filing with IRS
 2. 83(b) Election Acknowledgment Copy (Copy 2) with self-addressed, postage-paid envelope: for date stamping and returning to taxpayer

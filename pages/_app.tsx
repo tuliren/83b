@@ -1,12 +1,8 @@
-import { MantineProvider } from '@mantine/core';
-import '@mantine/core/styles.css';
-import { Notifications } from '@mantine/notifications';
 import PlausibleProvider from 'next-plausible';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import '../styles/globals.css';
-import '../styles/tailwind.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   // Uses NEXT_PUBLIC_VERCEL_ENV instead of NODE_ENV so we can exclude previews from analytics collection.
@@ -23,10 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <PlausibleProvider domain="83b.page" enabled={enableAnalytics}>
-        <MantineProvider>
-          <Notifications />
-          <Component {...pageProps} />
-        </MantineProvider>
+        <Component {...pageProps} />
       </PlausibleProvider>
     </>
   );

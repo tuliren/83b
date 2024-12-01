@@ -1,3 +1,5 @@
+import '../styles/globals.css';
+
 export const parameters = {
   controls: {
     matchers: {
@@ -7,3 +9,9 @@ export const parameters = {
   },
 };
 export const tags = ['autodocs'];
+
+export const decorators = [
+  (Story, context) => {
+    return <Story />;
+  },
+];
