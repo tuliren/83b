@@ -67,7 +67,7 @@
     "@storybook/addon-links": "^8.4.1",
     "@storybook/nextjs": "^8.4.1",
     "@storybook/react": "^8.4.1",
-    "@storybook/test": "^8.4.1",
+    "@storybook/test": "^8.6.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.13",
