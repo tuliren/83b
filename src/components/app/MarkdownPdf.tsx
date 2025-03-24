@@ -8,6 +8,8 @@ import type { Root, RootContent } from 'mdast';
 import remarkRehype from 'remark-rehype';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
+import { HeaderSection } from './types';
+import { Style } from '@react-pdf/types';
 
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';
@@ -123,10 +125,30 @@ const styles = StyleSheet.create({
   emphasis: {
     fontFamily: ITALIC_FONT,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+    paddingBottom: 10,
+  },
+  headerSection: {
+    flex: 1,
+  },
+  headerTextLeft: {
+    textAlign: 'left',
+  },
+  headerTextCenter: {
+    textAlign: 'center',
+  },
+  headerTextRight: {
+    textAlign: 'right',
+  },
 });
 
 interface MarkdownPdfProps {
   text: string;
+  headers?: HeaderSection[];
 }
 
 const renderNode = (node: RootContent, parentType?: string): ReactNode => {
@@ -247,7 +269,35 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
   }
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
+const renderHeaderSection = (section: HeaderSection, index: number) => {
+  const alignmentStyle =
+    section.alignment === 'center'
+      ? styles.headerTextCenter
+      : section.alignment === 'right'
+        ? styles.headerTextRight
+        : styles.headerTextLeft;
+
+  const customStyle: Style = {
+    ...alignmentStyle,
+  };
+  if (section.color) {
+    customStyle.color = section.color;
+  }
+  if (section.fontSize) {
+    customStyle.fontSize = section.fontSize;
+  }
+  if (section.bold) {
+    customStyle.fontFamily = BOLD_FONT;
+  }
+
+  return (
+    <View key={index} style={styles.headerSection}>
+      <Text style={customStyle}>{section.text}</Text>
+    </View>
+  );
+};
+
+const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [] }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -262,6 +312,11 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
+        {headers.length > 0 && (
+          <View style={styles.headerContainer}>
+            {headers.map((section, index) => renderHeaderSection(section, index))}
+          </View>
+        )}
         {ast.children.map((node, i) => (
           <Fragment key={i}>{renderNode(node)}</Fragment>
         ))}
