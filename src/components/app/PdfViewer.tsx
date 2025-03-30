@@ -3,13 +3,15 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import MarkdownPdf from '@/components/app/MarkdownPdf';
 import { debounce } from 'lodash';
+import { HeaderSection } from '@/components/app/types';
 
 interface PdfViewerProps {
   content: string;
   debounceTime?: number;
+  headers?: HeaderSection[];
 }
 
-const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000 }) => {
+const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [] }) => {
   const [debouncedContent, setDebouncedContent] = useState(content);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -39,7 +41,7 @@ const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000 }) => {
         </div>
       )}
       <PDFViewer className="w-full h-[95vh]">
-        <MarkdownPdf text={debouncedContent} />
+        <MarkdownPdf text={debouncedContent} headers={headers} />
       </PDFViewer>
     </div>
   );

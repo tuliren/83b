@@ -10,25 +10,38 @@ import { ELECTION_PARAMS } from '@/files/constants';
 import { getInitialParams } from '@/params/paramHelpers';
 import Toolbar from '@/components/app/Toolbar';
 import { cn } from '@/lib/utils';
+import { HeaderSection } from '@/components/app/types';
 
 interface AppProps {
   election: string;
   letter: string;
+  header1: string;
+  header2: string;
+  header3: string;
+  attention: string;
 }
 
 export async function getStaticProps() {
   const election = fs.readFileSync(path.join(process.cwd(), 'src/files/election.md'), 'utf8').toString();
   const letter = fs.readFileSync(path.join(process.cwd(), 'src/files/letter.md'), 'utf8').toString();
+  const header1 = fs.readFileSync(path.join(process.cwd(), 'src/files/header1.md'), 'utf8').toString();
+  const header2 = fs.readFileSync(path.join(process.cwd(), 'src/files/header2.md'), 'utf8').toString();
+  const header3 = fs.readFileSync(path.join(process.cwd(), 'src/files/header3.md'), 'utf8').toString();
+  const attention = fs.readFileSync(path.join(process.cwd(), 'src/files/attention.md'), 'utf8').toString();
 
   return {
     props: {
       election,
       letter,
+      header1,
+      header2,
+      header3,
+      attention,
     } as AppProps,
   };
 }
 
-const App: FC<AppProps> = ({ election, letter }) => {
+const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attention }) => {
   const initialFormData = getInitialParams(ELECTION_PARAMS);
   const [formData, setFormData] = useState(initialFormData);
   const [view, setView] = useState<'text' | 'pdf'>('text');
@@ -53,8 +66,34 @@ const App: FC<AppProps> = ({ election, letter }) => {
         </div>
 
         <div className="col-span-1 md:col-span-4 space-y-4">
-          <ContentCard title="Election Preview" content={election} formData={formData} view={view} />
-          <ContentCard title="Letter to IRS" content={letter} formData={formData} view={view} />
+          <ContentCard 
+            title="Election Preview - IRS File Copy" 
+            content={election} 
+            formData={formData} 
+            view={view} 
+            headers={[
+              { text: header1, alignment: 'center' }
+            ]}
+          />
+          <ContentCard 
+            title="Election Preview - IRS Acknowledgement Copy" 
+            content={election} 
+            formData={formData} 
+            view={view} 
+            headers={[
+              { text: attention, alignment: 'center' },
+              { text: header2, alignment: 'right' }
+            ]}
+          />
+          <ContentCard 
+            title="Letter to IRS" 
+            content={letter} 
+            formData={formData} 
+            view={view} 
+            headers={[
+              { text: header3, alignment: 'right' }
+            ]}
+          />
         </div>
       </div>
 
