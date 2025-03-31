@@ -39,7 +39,11 @@ Handlebars.registerHelper('formatNumber', function (value: HandlebarsValue): str
 });
 
 Handlebars.registerHelper('round', function (value: HandlebarsValue, precision: number): string {
-  return parseFloat(String(value)).toFixed(precision);
+  if (value === undefined || value === null) {
+    return '';
+  }
+  const p = Math.max(0, precision);
+  return parseFloat(String(value)).toFixed(p);
 });
 
 const templateCache = new Map<string, HandlebarsTemplateDelegate>();
