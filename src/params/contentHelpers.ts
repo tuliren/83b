@@ -31,9 +31,10 @@ Handlebars.registerHelper('formatNumber', function (value) {
   return value.toString();
 });
 
-Handlebars.registerHelper('round', function (value) {
+Handlebars.registerHelper('round', function (value, precision) {
   if (value === undefined || value === null) return '';
-  return parseFloat(value).toFixed(2);
+  precision = precision || 2; // Default to 2 decimal places if not specified
+  return parseFloat(value).toFixed(precision);
 });
 
 const templateCache = new Map<string, HandlebarsTemplateDelegate>();
