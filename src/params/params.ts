@@ -30,7 +30,11 @@ export interface DefaultFunctionFormParam {
   function: FormParamFunction;
 }
 
-export type DefaultFormParam = DefaultValueFormParam | DefaultFormulaFormParam | DefaultFunctionFormParam | DefaultHandlebarsFormulaFormParam;
+export type DefaultFormParam =
+  | DefaultValueFormParam
+  | DefaultFormulaFormParam
+  | DefaultFunctionFormParam
+  | DefaultHandlebarsFormulaFormParam;
 
 export interface FormParam {
   id: string;
