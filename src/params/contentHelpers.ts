@@ -36,7 +36,7 @@ Handlebars.registerHelper('formatNumber', function (value: HandlebarsValue): str
 
 Handlebars.registerHelper('round', function (value: HandlebarsValue, precision?: number): string {
   if (value === undefined || value === null) return '';
-  const p = precision || 2; // Default to 2 decimal places if not specified
+  const p = precision == null ? 2 : precision < 0 ? 0 : precision;
   return parseFloat(String(value)).toFixed(p);
 });
 
