@@ -9,10 +9,6 @@ export const getInitialParams = (formParams: FormParam[]): FormDataMap => {
         acc[param.id] = param.default.value;
         break;
       }
-      case DefaultFormParamType.Formula: {
-        acc[param.id] = '';
-        break;
-      }
       case DefaultFormParamType.HandlebarsFormula: {
         acc[param.id] = processTemplate(param.default.template, acc);
         break;
@@ -48,10 +44,7 @@ export const evaluateParams = (formData: FormDataMap, formParams: FormParam[]): 
     (acc, param) => {
       if (param.paramType === 'calculated') {
         if (param.default?.type === DefaultFormParamType.HandlebarsFormula) {
-          const value = processTemplate(param.default.template, acc);
-          acc[param.id] = value;
-        } else if (param.default?.type === DefaultFormParamType.Formula) {
-          acc[param.id] = '';
+          acc[param.id] = processTemplate(param.default.template, acc);
         }
       }
       return acc;
@@ -68,7 +61,6 @@ export const sortFormParamsByDependencies = (formParams: FormParam[]): FormParam
     if (param.paramType === 'calculated') {
       if (param.default?.type === DefaultFormParamType.HandlebarsFormula) {
         dependencyGraph[param.id].push(...param.default.dependencies);
-      } else if (param.default?.type === DefaultFormParamType.Formula) {
       }
     }
     if (param.condition != null) {

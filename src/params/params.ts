@@ -1,6 +1,5 @@
 export enum DefaultFormParamType {
   Value = 'value',
-  Formula = 'formula',
   Function = 'function',
   HandlebarsFormula = 'handlebars-formula',
 }
@@ -8,11 +7,6 @@ export enum DefaultFormParamType {
 export interface DefaultValueFormParam {
   type: DefaultFormParamType.Value;
   value: string | number;
-}
-
-export interface DefaultFormulaFormParam {
-  type: DefaultFormParamType.Formula;
-  operation: any; // Kept for backward compatibility
 }
 
 export interface DefaultHandlebarsFormulaFormParam {
@@ -30,11 +24,7 @@ export interface DefaultFunctionFormParam {
   function: FormParamFunction;
 }
 
-export type DefaultFormParam =
-  | DefaultValueFormParam
-  | DefaultFormulaFormParam
-  | DefaultFunctionFormParam
-  | DefaultHandlebarsFormulaFormParam;
+export type DefaultFormParam = DefaultValueFormParam | DefaultFunctionFormParam | DefaultHandlebarsFormulaFormParam;
 
 export interface FormParam {
   id: string;
