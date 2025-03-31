@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Enable corepack
         run: corepack enable
       - name: Setup node
@@ -27,6 +29,15 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Generate storybook
         run: yarn build-storybook
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: storybook-static
+          autoAcceptChanges: ${{ github.ref == 'refs/heads/main' }}
+          exitZeroOnChanges: true  # makes the workflow continue even if there are changes
+          exitOnceUploaded: true   # makes the workflow exit once the build is uploaded
+          allowConsoleErrors: true  # prevents console errors from failing the build
       - name: Run stoat action
         uses: stoat-dev/stoat-action@main
         if: always()
