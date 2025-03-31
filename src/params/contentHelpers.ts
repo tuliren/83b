@@ -1,47 +1,42 @@
 import { FormDataMap } from '@/params/common';
+import Handlebars from 'handlebars';
+
+Handlebars.registerHelper('eq', function(a, b) {
+  return a === b;
+});
+
+Handlebars.registerHelper('neq', function(a, b) {
+  return a !== b;
+});
+
+const templateCache = new Map<string, HandlebarsTemplateDelegate>();
+
+/**
+ * Compiles a template if not already cached and returns the compiled template
+ */
+const getCompiledTemplate = (template: string): HandlebarsTemplateDelegate => {
+  if (!templateCache.has(template)) {
+    templateCache.set(template, Handlebars.compile(template));
+  }
+  return templateCache.get(template)!;
+};
+
+/**
+ * Processes a template with Handlebars, replacing placeholders and processing conditional blocks
+ */
+export const processTemplate = (template: string, data: FormDataMap): string => {
+  const compiledTemplate = getCompiledTemplate(template);
+  return compiledTemplate(data);
+};
 
 export const replacePlaceholders = (text: string, data: FormDataMap): string => {
-  return text.replace(/{{(.*?)}}/g, (_, key) => {
-    const trimmedKey = key.trim();
-    return data?.[trimmedKey] != null && data[trimmedKey] !== ''
-      ? String(data[trimmedKey]).trim()
-      : `{{${trimmedKey}}}`;
-  });
+  return processTemplate(text, data);
 };
 
 export const processIfBlocks = (text: string, data: FormDataMap): string => {
-  let processedText = text;
-  let previousText;
-
-  do {
-    previousText = processedText;
-    processedText = processedText.replace(/{{#if\s+(.*?)}}([\s\S]*?){{\/if}}/g, (_, condition, content) => {
-      const trimmedCondition = condition.trim();
-      const [key, operator, value] = trimmedCondition.split(/\s+/);
-
-      const dataValue = data[key];
-      let conditionMet: boolean;
-
-      switch (operator) {
-        case '==': {
-          conditionMet = String(dataValue) === value;
-          break;
-        }
-        case '!=': {
-          conditionMet = String(dataValue) !== value;
-          break;
-        }
-        default: {
-          conditionMet = Boolean(dataValue);
-        }
-      }
-      return conditionMet ? replacePlaceholders(content, data).trim() : '';
-    });
-  } while (processedText !== previousText);
-
-  return processedText;
+  return processTemplate(text, data);
 };
 
 export const processMarkdown = (text: string, data: FormDataMap): string => {
-  return processIfBlocks(replacePlaceholders(text, data), data);
+  return processTemplate(text, data);
 };
