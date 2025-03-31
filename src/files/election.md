@@ -21,11 +21,11 @@ The undersigned taxpayer hereby elects, pursuant to Section 83(b) of the Interna
 5. Nature of restrictions to which the property is subject:
    The Shares are subject to repurchase by the Company or its assignee upon the occurrence of certain events. This repurchase right lapses based upon the continued performance of services by the taxpayer over time.
 
-6. The fair market value at the time of transfer (determined without regard to any lapse restrictions, as defined in Treasury Regulation Section 1.83-3(i)) of the Shares was **${{fmv-per-share-price}}** per Share x **{{share-number}}** Shares = **${{fmv-total-share-price}}**.
+6. The fair market value at the time of transfer (determined without regard to any lapse restrictions, as defined in Treasury Regulation Section 1.83-3(i)) of the Shares was **${{round fmv-per-share-price}}** per Share x **{{share-number}}** Shares = **${{round fmv-total-share-price}}**.
 
-7. The amount paid by the taxpayer for Shares was **${{paid-per-share-price}}** per Share x **{{share-number}}** Shares = **${{paid-total-share-price}}**.
+7. The amount paid by the taxpayer for Shares was **${{round paid-per-share-price}}** per Share x **{{share-number}}** Shares = **${{round paid-total-share-price}}**.
 
-8. The amount to include in gross income is **${{gross-income-amount}}**.
+8. The amount to include in gross income is **${{round gross-income-amount}}**.
 
 The undersigned taxpayer will file this election with the Internal Revenue Service office with which the taxpayer files his or her annual income tax return no later than 30 days after the date of transfer of the property. A copy of this statement has been furnished to the Company. The undersigned is the person performing the services in connection with which the property was transferred.
 

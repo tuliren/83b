@@ -2,7 +2,7 @@ import { FormDataMap } from '@/params/common';
 import Handlebars from 'handlebars';
 
 Handlebars.registerHelper('eq', function (a, b) {
-  return a === b;
+  return String(a) === String(b);
 });
 
 Handlebars.registerHelper('neq', function (a, b) {
@@ -29,6 +29,11 @@ Handlebars.registerHelper('divide', function (a, b) {
 Handlebars.registerHelper('formatNumber', function (value) {
   if (value === undefined || value === null) return '';
   return value.toString();
+});
+
+Handlebars.registerHelper('round', function (value) {
+  if (value === undefined || value === null) return '';
+  return parseFloat(value).toFixed(2);
 });
 
 const templateCache = new Map<string, HandlebarsTemplateDelegate>();
