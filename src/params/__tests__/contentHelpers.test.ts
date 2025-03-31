@@ -157,27 +157,27 @@ describe('processTemplate', () => {
   it('processes simple templates with variables', () => {
     const template = 'Hello {{name}}!';
     const data: FormDataMap = { name: 'John' };
-    
+
     const result = processTemplate(template, data);
-    
+
     expect(result).toBe('Hello John!');
   });
 
   it('processes templates with multiple variables', () => {
     const template = 'Hello {{name}}! Welcome to {{city}}.';
     const data: FormDataMap = { name: 'John', city: 'New York' };
-    
+
     const result = processTemplate(template, data);
-    
+
     expect(result).toBe('Hello John! Welcome to New York.');
   });
 
   it('processes templates with conditional blocks', () => {
     const template = 'Hello {{name}}!{{#if (eq hasAccess true)}} You have access.{{/if}}';
     const data: FormDataMap = { name: 'John', hasAccess: 'true' };
-    
+
     const result = processTemplate(template, data);
-    
+
     expect(result).toBe('Hello John! You have access.');
   });
 
@@ -191,18 +191,18 @@ describe('processTemplate', () => {
       {{/if}}
     `;
     const data: FormDataMap = { name: 'John', role: 'admin' };
-    
+
     const result = processTemplate(template, data);
-    
+
     expect(result.trim()).toBe('Hello John!\n          You have admin access.');
   });
 
   it('processes templates with math operations', () => {
     const template = 'Total: ${{round (multiply price quantity)}}';
     const data: FormDataMap = { price: '10.5', quantity: '3' };
-    
+
     const result = processTemplate(template, data);
-    
+
     expect(result).toBe('Total: $32');
   });
 
@@ -210,13 +210,13 @@ describe('processTemplate', () => {
     const template1 = `Template1-${Date.now()}-${Math.random()}`; // Ensure unique template
     const template2 = `Template2-${Date.now()}-${Math.random()}`; // Ensure unique template
     const data: FormDataMap = { name: 'John' };
-    
+
     processTemplate(template1, data);
-    
+
     processTemplate(template1, data);
-    
+
     processTemplate(template2, data);
-    
+
     expect(true).toBe(true);
   });
 });

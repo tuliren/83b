@@ -7,7 +7,7 @@ jest.mock('../contentHelpers', () => ({
     if (template === '{{multiply base 2}}') {
       return '20';
     }
-    
+
     if (template.includes('multiply')) {
       const match = template.match(/{{multiply\s+(\w+)\s+(\w+)}}/);
       if (match) {
@@ -23,7 +23,7 @@ jest.mock('../contentHelpers', () => ({
       }
     }
     return template;
-  }
+  },
 }));
 
 describe('paramHelpers', () => {
@@ -318,11 +318,11 @@ describe('paramHelpers', () => {
 
       const result = sortFormParamsByDependencies(formParams);
 
-      const priceIndex = result.findIndex(p => p.id === 'price');
-      const quantityIndex = result.findIndex(p => p.id === 'quantity');
-      const subtotalIndex = result.findIndex(p => p.id === 'subtotal');
-      const taxIndex = result.findIndex(p => p.id === 'tax');
-      const totalIndex = result.findIndex(p => p.id === 'total');
+      const priceIndex = result.findIndex((p) => p.id === 'price');
+      const quantityIndex = result.findIndex((p) => p.id === 'quantity');
+      const subtotalIndex = result.findIndex((p) => p.id === 'subtotal');
+      const taxIndex = result.findIndex((p) => p.id === 'tax');
+      const totalIndex = result.findIndex((p) => p.id === 'total');
 
       expect(priceIndex).toBeLessThan(subtotalIndex);
       expect(quantityIndex).toBeLessThan(subtotalIndex);
@@ -352,8 +352,8 @@ describe('paramHelpers', () => {
 
       const result = sortFormParamsByDependencies(formParams);
 
-      const hasSpouseIndex = result.findIndex(p => p.id === 'hasSpouse');
-      const spouseNameIndex = result.findIndex(p => p.id === 'spouseName');
+      const hasSpouseIndex = result.findIndex((p) => p.id === 'hasSpouse');
+      const spouseNameIndex = result.findIndex((p) => p.id === 'spouseName');
 
       expect(hasSpouseIndex).toBeLessThan(spouseNameIndex);
     });
@@ -387,8 +387,8 @@ describe('paramHelpers', () => {
       const result = sortFormParamsByDependencies(formParams);
 
       expect(result.length).toBe(2);
-      expect(result.some(p => p.id === 'param1')).toBe(true);
-      expect(result.some(p => p.id === 'param2')).toBe(true);
+      expect(result.some((p) => p.id === 'param1')).toBe(true);
+      expect(result.some((p) => p.id === 'param2')).toBe(true);
     });
   });
 });
