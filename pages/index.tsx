@@ -79,7 +79,7 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
             view={view}
             headers={[
               { text: header2, alignment: 'left' },
-              { text: attention, alignment: 'center' },
+              { text: attention, alignment: 'center', color: 'red', bold: true },
             ]}
           />
           <ContentCard
