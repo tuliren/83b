@@ -16,6 +16,7 @@
     "node": true
   },
   "rules": {
+    "curly": ["error", "all"],
     "import/no-cycle": "error",
     "import/newline-after-import": [
       "error",
