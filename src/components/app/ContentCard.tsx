@@ -12,9 +12,10 @@ interface ContentCardProps {
   formData: FormDataMap;
   view?: 'text' | 'pdf';
   headers?: HeaderSection[];
+  fitInOnePage?: boolean;
 }
 
-const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [] }) => {
+const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [], fitInOnePage = false }) => {
   const processedContent = processTemplate(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,7 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 't
           headers={headers}
         />
       )}
-      {view === 'pdf' && <PdfViewer content={processedContent} headers={headers} />}
+      {view === 'pdf' && <PdfViewer content={processedContent} headers={headers} fitInOnePage={fitInOnePage} />}
     </BaseCard>
   );
 };
