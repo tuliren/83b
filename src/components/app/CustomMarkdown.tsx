@@ -1,4 +1,4 @@
-import React, { FC, memo, RefObject, useRef } from 'react';
+import { CSSProperties, FC, Fragment, memo, RefObject, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
@@ -20,14 +20,10 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames,
   const targetRef = containerRef || defaultRef;
 
   const renderHeaderSection = (section: HeaderSection) => {
-    const alignmentClass = 
-      section.alignment === 'center' 
-        ? 'text-center' 
-        : section.alignment === 'right' 
-          ? 'text-right' 
-          : 'text-left';
+    const alignmentClass =
+      section.alignment === 'center' ? 'text-center' : section.alignment === 'right' ? 'text-right' : 'text-left';
 
-    const styleProps: React.CSSProperties = {};
+    const styleProps: CSSProperties = {};
     if (section.color) {
       styleProps.color = section.color;
     }
@@ -36,14 +32,8 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames,
     }
 
     return (
-      <div className={cn("flex-1", alignmentClass)}>
-        <p 
-          className={cn(
-            section.bold ? 'font-bold' : '',
-            'mb-0'
-          )} 
-          style={styleProps}
-        >
+      <div className={cn('flex-1', alignmentClass)}>
+        <p className={cn(section.bold ? 'font-bold' : '', 'mb-0')} style={styleProps}>
           {section.text}
         </p>
       </div>
@@ -55,9 +45,7 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames,
       {headers.length > 0 && (
         <div className="flex flex-row mb-5 pb-2 border-b border-gray-200">
           {headers.map((section, index) => (
-            <React.Fragment key={index}>
-              {renderHeaderSection(section)}
-            </React.Fragment>
+            <Fragment key={index}>{renderHeaderSection(section)}</Fragment>
           ))}
         </div>
       )}

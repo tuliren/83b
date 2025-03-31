@@ -16,7 +16,10 @@ const BOLD_FONT = 'Helvetica-Bold';
 const ITALIC_FONT = 'Helvetica-Oblique';
 const LINE_HEIGHT = 0.9;
 const FONT_SIZE = 10;
-const PARAGRAPH_MARGIN_TOP = 10;
+const TITLE_MARGIN_TOP = 3;
+const TITLE_MARGIN_BOTTOM = 12;
+const PARAGRAPH_MARGIN_TOP = 2;
+const PARAGRAPH_MARGIN_BOTTOM = 4;
 
 const hyphenationCallback = (word: string) => {
   return [word];
@@ -35,14 +38,14 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginTop: 12,
+    marginTop: TITLE_MARGIN_TOP,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h2: {
     fontSize: 24,
-    marginTop: 10,
-    paddingBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     fontFamily: BOLD_FONT,
@@ -50,34 +53,35 @@ const styles = StyleSheet.create({
   },
   h3: {
     fontSize: 22,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h4: {
     fontSize: 20,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h5: {
     fontSize: 18,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h6: {
     fontSize: 16,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   paragraph: {
     marginTop: PARAGRAPH_MARGIN_TOP,
+    marginBottom: PARAGRAPH_MARGIN_BOTTOM,
     lineHeight: LINE_HEIGHT,
   },
   list: {
@@ -127,10 +131,10 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
-    paddingBottom: 10,
+    paddingBottom: 8,
   },
   headerSection: {
     flex: 1,
