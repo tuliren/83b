@@ -130,14 +130,14 @@ const styles = StyleSheet.create({
     fontFamily: ITALIC_FONT,
   },
   headerContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     paddingBottom: 8,
   },
   headerSection: {
-    flex: 1,
+    flexDirection: 'column',
   },
   headerTextLeft: {
     textAlign: 'left',
@@ -295,8 +295,10 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   }
 
   return (
-    <View key={index} style={styles.headerSection}>
-      <Text style={customStyle}>{section.text}</Text>
+    <View key={index} style={{ ...styles.headerSection, alignItems: section.alignment === 'center' ? 'center' : section.alignment === 'right' ? 'flex-end' : 'flex-start' }}>
+      {section.text.split('\n').map((text, textIndex) => (
+        <Text key={`header-text-${textIndex}`} style={customStyle}>{text}</Text>
+      ))}
     </View>
   );
 };
