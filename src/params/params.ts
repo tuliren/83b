@@ -1,9 +1,7 @@
-import { Operation } from '@/params/operations';
-
 export enum DefaultFormParamType {
   Value = 'value',
-  Formula = 'formula',
   Function = 'function',
+  HandlebarsFormula = 'handlebars-formula',
 }
 
 export interface DefaultValueFormParam {
@@ -11,9 +9,10 @@ export interface DefaultValueFormParam {
   value: string | number;
 }
 
-export interface DefaultFormulaFormParam {
-  type: DefaultFormParamType.Formula;
-  operation: Operation;
+export interface DefaultHandlebarsFormulaFormParam {
+  type: DefaultFormParamType.HandlebarsFormula;
+  template: string;
+  dependencies: string[];
 }
 
 export enum FormParamFunction {
@@ -25,7 +24,7 @@ export interface DefaultFunctionFormParam {
   function: FormParamFunction;
 }
 
-export type DefaultFormParam = DefaultValueFormParam | DefaultFormulaFormParam | DefaultFunctionFormParam;
+export type DefaultFormParam = DefaultValueFormParam | DefaultFunctionFormParam | DefaultHandlebarsFormulaFormParam;
 
 export interface FormParam {
   id: string;

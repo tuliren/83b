@@ -1,6 +1,6 @@
 import { FormDataMap } from '@/params/common';
-import { Operation, OperationType, evaluate } from '@/params/operations';
 import { DefaultFormParamType, FormParam, FormParamFunction } from '@/params/params';
+import { processTemplate } from '@/params/contentHelpers';
 
 export const getInitialParams = (formParams: FormParam[]): FormDataMap => {
   return formParams.reduce((acc, param) => {
@@ -9,8 +9,8 @@ export const getInitialParams = (formParams: FormParam[]): FormDataMap => {
         acc[param.id] = param.default.value;
         break;
       }
-      case DefaultFormParamType.Formula: {
-        acc[param.id] = evaluate(param.default.operation, acc) ?? '';
+      case DefaultFormParamType.HandlebarsFormula: {
+        acc[param.id] = processTemplate(param.default.template, acc);
         break;
       }
       case DefaultFormParamType.Function: {
@@ -42,9 +42,10 @@ export const isParamConditionMet = (formData: FormDataMap, condition: Record<str
 export const evaluateParams = (formData: FormDataMap, formParams: FormParam[]): FormDataMap => {
   return formParams.reduce(
     (acc, param) => {
-      if (param.paramType === 'calculated' && param.default?.type === DefaultFormParamType.Formula) {
-        const value = evaluate(param.default.operation, acc);
-        acc[param.id] = value !== undefined ? value.toString() : '';
+      if (param.paramType === 'calculated') {
+        if (param.default?.type === DefaultFormParamType.HandlebarsFormula) {
+          acc[param.id] = processTemplate(param.default.template, acc);
+        }
       }
       return acc;
     },
@@ -57,8 +58,10 @@ export const sortFormParamsByDependencies = (formParams: FormParam[]): FormParam
 
   formParams.forEach((param) => {
     dependencyGraph[param.id] = [];
-    if (param.paramType === 'calculated' && param.default?.type === DefaultFormParamType.Formula) {
-      dependencyGraph[param.id].push(...extractOperationDependencies(param.default.operation));
+    if (param.paramType === 'calculated') {
+      if (param.default?.type === DefaultFormParamType.HandlebarsFormula) {
+        dependencyGraph[param.id].push(...param.default.dependencies);
+      }
     }
     if (param.condition != null) {
       dependencyGraph[param.id].push(...extractConditionDependencies(param.condition));
@@ -86,25 +89,6 @@ export const sortFormParamsByDependencies = (formParams: FormParam[]): FormParam
   formParams.forEach((param) => visit(param.id));
 
   return sortedParams;
-};
-
-const extractOperationDependencies = (operation: Operation): string[] => {
-  const dependencies: string[] = [];
-
-  const visitOperand = (operand: Operation | number | string) => {
-    if (typeof operand === 'string') {
-      dependencies.push(operand);
-    } else if (typeof operand !== 'number') {
-      dependencies.push(...extractOperationDependencies(operand));
-    }
-  };
-
-  if (operation.type === OperationType.BiOperation) {
-    visitOperand(operation.left);
-    visitOperand(operation.right);
-  }
-
-  return dependencies;
 };
 
 const extractConditionDependencies = (condition: Record<string, string | number>): string[] => {

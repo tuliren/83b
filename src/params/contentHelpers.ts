@@ -1,47 +1,67 @@
 import { FormDataMap } from '@/params/common';
+import Handlebars from 'handlebars';
 
-export const replacePlaceholders = (text: string, data: FormDataMap): string => {
-  return text.replace(/{{(.*?)}}/g, (_, key) => {
-    const trimmedKey = key.trim();
-    return data?.[trimmedKey] != null && data[trimmedKey] !== ''
-      ? String(data[trimmedKey]).trim()
-      : `{{${trimmedKey}}}`;
-  });
+type HandlebarsValue = string | number | boolean | null | undefined;
+
+Handlebars.registerHelper('eq', function (a: HandlebarsValue, b: HandlebarsValue): boolean {
+  return String(a) === String(b);
+});
+
+Handlebars.registerHelper('neq', function (a: HandlebarsValue, b: HandlebarsValue): boolean {
+  return a !== b;
+});
+
+Handlebars.registerHelper('multiply', function (a: HandlebarsValue, b: HandlebarsValue): number {
+  return parseFloat(String(a)) * parseFloat(String(b));
+});
+
+Handlebars.registerHelper('subtract', function (a: HandlebarsValue, b: HandlebarsValue): number {
+  return parseFloat(String(a)) - parseFloat(String(b));
+});
+
+Handlebars.registerHelper('add', function (a: HandlebarsValue, b: HandlebarsValue): number {
+  return parseFloat(String(a)) + parseFloat(String(b));
+});
+
+Handlebars.registerHelper('divide', function (a: HandlebarsValue, b: HandlebarsValue): number {
+  const divisor = parseFloat(String(b));
+  if (divisor === 0) {
+    return 0;
+  }
+  return parseFloat(String(a)) / divisor;
+});
+
+Handlebars.registerHelper('formatNumber', function (value: HandlebarsValue): string {
+  if (value === undefined || value === null) {
+    return '';
+  }
+  return String(value);
+});
+
+Handlebars.registerHelper('round', function (value: HandlebarsValue, precision: number): string {
+  if (value === undefined || value === null) {
+    return '';
+  }
+  const p = Math.max(0, precision);
+  return parseFloat(String(value)).toFixed(p);
+});
+
+const templateCache = new Map<string, HandlebarsTemplateDelegate>();
+
+/**
+ * Compiles a template if not already cached and returns the compiled template
+ */
+const getCompiledTemplate = (template: string): HandlebarsTemplateDelegate => {
+  if (!templateCache.has(template)) {
+    templateCache.set(template, Handlebars.compile(template));
+  }
+  return templateCache.get(template)!;
 };
 
-export const processIfBlocks = (text: string, data: FormDataMap): string => {
-  let processedText = text;
-  let previousText;
-
-  do {
-    previousText = processedText;
-    processedText = processedText.replace(/{{#if\s+(.*?)}}([\s\S]*?){{\/if}}/g, (_, condition, content) => {
-      const trimmedCondition = condition.trim();
-      const [key, operator, value] = trimmedCondition.split(/\s+/);
-
-      const dataValue = data[key];
-      let conditionMet: boolean;
-
-      switch (operator) {
-        case '==': {
-          conditionMet = String(dataValue) === value;
-          break;
-        }
-        case '!=': {
-          conditionMet = String(dataValue) !== value;
-          break;
-        }
-        default: {
-          conditionMet = Boolean(dataValue);
-        }
-      }
-      return conditionMet ? replacePlaceholders(content, data).trim() : '';
-    });
-  } while (processedText !== previousText);
-
-  return processedText;
-};
-
-export const processMarkdown = (text: string, data: FormDataMap): string => {
-  return processIfBlocks(replacePlaceholders(text, data), data);
+/**
+ * Processes a template with Handlebars, replacing placeholders and processing conditional blocks
+ */
+export const processTemplate = (template: string, data: FormDataMap): string => {
+  const compiledTemplate = getCompiledTemplate(template);
+  return compiledTemplate(data);
 };

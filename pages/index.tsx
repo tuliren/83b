@@ -21,8 +21,8 @@ interface AppProps {
 }
 
 export async function getStaticProps() {
-  const election = fs.readFileSync(path.join(process.cwd(), 'src/files/election.md'), 'utf8').toString();
-  const letter = fs.readFileSync(path.join(process.cwd(), 'src/files/letter.md'), 'utf8').toString();
+  const election = fs.readFileSync(path.join(process.cwd(), 'src/files/election.hbs'), 'utf8').toString();
+  const letter = fs.readFileSync(path.join(process.cwd(), 'src/files/letter.hbs'), 'utf8').toString();
   const header1 = fs.readFileSync(path.join(process.cwd(), 'src/files/header1.md'), 'utf8').toString();
   const header2 = fs.readFileSync(path.join(process.cwd(), 'src/files/header2.md'), 'utf8').toString();
   const header3 = fs.readFileSync(path.join(process.cwd(), 'src/files/header3.md'), 'utf8').toString();

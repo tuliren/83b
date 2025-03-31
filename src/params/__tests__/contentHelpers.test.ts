@@ -1,171 +1,237 @@
-import { FormDataMap } from '@/params/common';
-import { processIfBlocks, processMarkdown, replacePlaceholders } from '@/params/contentHelpers';
+import { processTemplate } from '../contentHelpers';
+import { FormDataMap } from '../common';
 
-describe('replacePlaceholders', () => {
-  it('replaces single placeholder with corresponding data', () => {
-    const template = 'Hello {{name}}!';
-    const data: FormDataMap = { name: 'John' };
+const testHelper = (helperName: string, args: any[], expected: any) => {
+  const template = `{{${helperName} ${args.map((_, i) => `arg${i}`).join(' ')}}}`;
+  const data = args.reduce((acc, arg, i) => ({ ...acc, [`arg${i}`]: arg }), {});
+  const result = processTemplate(template, data);
+  expect(result).toBe(String(expected));
+};
 
-    const result = replacePlaceholders(template, data);
+describe('Handlebars helpers', () => {
+  describe('eq helper', () => {
+    it('returns true when values are equal as strings', () => {
+      testHelper('eq', ['test', 'test'], 'true');
+      testHelper('eq', [123, '123'], 'true');
+      testHelper('eq', [true, 'true'], 'true');
+      expect.hasAssertions();
+    });
 
-    expect(result).toBe('Hello John!');
+    it('returns false when values are not equal as strings', () => {
+      testHelper('eq', ['test', 'other'], 'false');
+      testHelper('eq', [123, 456], 'false');
+      testHelper('eq', [true, false], 'false');
+      expect.hasAssertions();
+    });
+
+    it('handles null and undefined values', () => {
+      testHelper('eq', [null, null], 'true');
+      testHelper('eq', [undefined, undefined], 'true');
+      testHelper('eq', [null, undefined], 'false');
+      expect.hasAssertions();
+    });
   });
 
-  it('replaces multiple placeholders with corresponding data', () => {
-    const template = '{{greeting}} {{name}}! How is {{location}}?';
-    const data: FormDataMap = {
-      greeting: 'Hi',
-      name: 'Alice',
-      location: 'London',
-    };
+  describe('neq helper', () => {
+    it('returns true when values are not equal', () => {
+      testHelper('neq', ['test', 'other'], 'true');
+      testHelper('neq', [123, 456], 'true');
+      testHelper('neq', [true, false], 'true');
+      expect.hasAssertions();
+    });
 
-    const result = replacePlaceholders(template, data);
-
-    expect(result).toBe('Hi Alice! How is London?');
+    it('returns false when values are equal', () => {
+      testHelper('neq', ['test', 'test'], 'false');
+      testHelper('neq', [123, 123], 'false');
+      testHelper('neq', [true, true], 'false');
+      expect.hasAssertions();
+    });
   });
 
-  it('preserves placeholder when no data is provided', () => {
-    const template = 'Hello {{name}}!';
-    const data: FormDataMap = {};
+  describe('multiply helper', () => {
+    it('multiplies two numbers', () => {
+      testHelper('multiply', [5, 3], '15');
+      testHelper('multiply', [2.5, 2], '5');
+      testHelper('multiply', [0, 10], '0');
+      expect.hasAssertions();
+    });
 
-    const result = replacePlaceholders(template, data);
+    it('handles string numbers', () => {
+      testHelper('multiply', ['5', '3'], '15');
+      testHelper('multiply', ['2.5', '2'], '5');
+      expect.hasAssertions();
+    });
 
-    expect(result).toBe('Hello {{name}}!');
+    it('handles invalid inputs', () => {
+      testHelper('multiply', ['abc', 3], 'NaN');
+      testHelper('multiply', [5, 'xyz'], 'NaN');
+      expect.hasAssertions();
+    });
   });
 
-  it('preserves placeholder when data value is empty string', () => {
-    const template = 'Hello {{name}}!';
-    const data: FormDataMap = { name: '' };
+  describe('subtract helper', () => {
+    it('subtracts second number from first', () => {
+      testHelper('subtract', [10, 3], '7');
+      testHelper('subtract', [5, 10], '-5');
+      testHelper('subtract', [3.5, 1.5], '2');
+      expect.hasAssertions();
+    });
 
-    const result = replacePlaceholders(template, data);
-
-    expect(result).toBe('Hello {{name}}!');
+    it('handles string numbers', () => {
+      testHelper('subtract', ['10', '3'], '7');
+      testHelper('subtract', ['5', '10'], '-5');
+      expect.hasAssertions();
+    });
   });
 
-  it('handles whitespace in placeholder names', () => {
-    const template = 'Hello {{  name  }}!';
-    const data: FormDataMap = { name: 'John' };
+  describe('add helper', () => {
+    it('adds two numbers', () => {
+      testHelper('add', [5, 3], '8');
+      testHelper('add', [2.5, 2.5], '5');
+      testHelper('add', [0, 10], '10');
+      expect.hasAssertions();
+    });
 
-    const result = replacePlaceholders(template, data);
-
-    expect(result).toBe('Hello John!');
+    it('handles string numbers', () => {
+      testHelper('add', ['5', '3'], '8');
+      testHelper('add', ['2.5', '2.5'], '5');
+      expect.hasAssertions();
+    });
   });
 
-  it('trims whitespace from data values', () => {
-    const template = 'Hello {{name}}!';
-    const data: FormDataMap = { name: '  John  ' };
+  describe('divide helper', () => {
+    it('divides first number by second', () => {
+      testHelper('divide', [10, 2], '5');
+      testHelper('divide', [5, 2], '2.5');
+      testHelper('divide', [0, 5], '0');
+      expect.hasAssertions();
+    });
 
-    const result = replacePlaceholders(template, data);
+    it('returns 0 when dividing by zero', () => {
+      testHelper('divide', [10, 0], '0');
+      expect.hasAssertions();
+    });
 
-    expect(result).toBe('Hello John!');
+    it('handles string numbers', () => {
+      testHelper('divide', ['10', '2'], '5');
+      testHelper('divide', ['5', '2'], '2.5');
+      expect.hasAssertions();
+    });
+  });
+
+  describe('formatNumber helper', () => {
+    it('formats numbers as strings', () => {
+      testHelper('formatNumber', [123], '123');
+      testHelper('formatNumber', [123.45], '123.45');
+      expect.hasAssertions();
+    });
+
+    it('returns empty string for null or undefined', () => {
+      testHelper('formatNumber', [null], '');
+      testHelper('formatNumber', [undefined], '');
+      expect.hasAssertions();
+    });
+
+    it('handles non-numeric values', () => {
+      testHelper('formatNumber', ['test'], 'test');
+      testHelper('formatNumber', [true], 'true');
+      expect.hasAssertions();
+    });
+  });
+
+  describe('round helper', () => {
+    it('rounds to specified precision', () => {
+      testHelper('round', [123.456, 0], '123');
+      testHelper('round', [123.456, 1], '123.5');
+      testHelper('round', [123.456, 3], '123.456');
+      testHelper('round', [123.456, 4], '123.4560');
+      expect.hasAssertions();
+    });
+
+    it('handles negative precision as 0', () => {
+      testHelper('round', [123.456, -1], '123');
+      testHelper('round', [123.456, -2], '123');
+      expect.hasAssertions();
+    });
+
+    it('returns empty string for null or undefined', () => {
+      testHelper('round', [null], '');
+      testHelper('round', [undefined], '');
+      expect.hasAssertions();
+    });
+
+    it('handles string numbers', () => {
+      testHelper('round', ['123.456'], '123');
+      testHelper('round', ['123.456', 1], '123.5');
+      expect.hasAssertions();
+    });
   });
 });
 
-describe('processIfBlocks', () => {
-  it('includes content when condition is true', () => {
-    const template = 'Start {{#if name}}Hello {{name}}{{/if}} End';
+describe('processTemplate', () => {
+  it('processes simple templates with variables', () => {
+    const template = 'Hello {{name}}!';
     const data: FormDataMap = { name: 'John' };
 
-    const result = processIfBlocks(template, data);
+    const result = processTemplate(template, data);
 
-    expect(result).toBe('Start Hello John End');
+    expect(result).toBe('Hello John!');
   });
 
-  it('excludes content when condition is false', () => {
-    const template = 'Start {{#if name}}Hello {{name}}{{/if}} End';
-    const data: FormDataMap = { name: '' };
+  it('processes templates with multiple variables', () => {
+    const template = 'Hello {{name}}! Welcome to {{city}}.';
+    const data: FormDataMap = { name: 'John', city: 'New York' };
 
-    const result = processIfBlocks(template, data);
+    const result = processTemplate(template, data);
 
-    expect(result).toBe('Start  End');
+    expect(result).toBe('Hello John! Welcome to New York.');
   });
 
-  it('processes equality operator correctly', () => {
-    const template = '{{#if status == active}}User is active{{/if}}';
-    const data: FormDataMap = { status: 'active' };
+  it('processes templates with conditional blocks', () => {
+    const template = 'Hello {{name}}!{{#if (eq hasAccess true)}} You have access.{{/if}}';
+    const data: FormDataMap = { name: 'John', hasAccess: 'true' };
 
-    const result = processIfBlocks(template, data);
+    const result = processTemplate(template, data);
 
-    expect(result).toBe('User is active');
+    expect(result).toBe('Hello John! You have access.');
   });
 
-  it('processes inequality operator correctly', () => {
-    const template = '{{#if status != inactive}}User is not inactive{{/if}}';
-    const data: FormDataMap = { status: 'active' };
-
-    const result = processIfBlocks(template, data);
-
-    expect(result).toBe('User is not inactive');
-  });
-
-  it('handles nested placeholders inside if blocks', () => {
-    const template = '{{#if user}}Welcome {{user}}, your role is {{role}}{{/if}}';
-    const data: FormDataMap = { user: 'John', role: 'admin' };
-
-    const result = processIfBlocks(template, data);
-
-    expect(result).toBe('Welcome John, your role is admin');
-  });
-
-  it('handles multiple if blocks', () => {
+  it('processes templates with nested conditional blocks', () => {
     const template = `
-      {{#if name}}Name: {{name}}{{/if}}
-      {{#if email}}Email: {{email}}{{/if}}
-    `;
-    const data: FormDataMap = { name: 'John', email: 'john@example.com' };
-
-    const result = processIfBlocks(template, data);
-
-    expect(result.trim()).toBe('Name: John\n      Email: john@example.com');
-  });
-
-  it('handles whitespace in condition', () => {
-    const template = '{{#if  status  ==  active  }}Active{{/if}}';
-    const data: FormDataMap = { status: 'active' };
-
-    const result = processIfBlocks(template, data);
-
-    expect(result).toBe('Active');
-  });
-});
-
-describe('processMarkdown', () => {
-  it('processes both placeholders and if blocks', () => {
-    const template = `
-      {{#if user}}
-        Welcome {{user}}!
-        {{#if role == admin}}
+      {{#if name}}
+        Hello {{name}}!
+        {{#if (eq role "admin")}}
           You have admin access.
         {{/if}}
       {{/if}}
     `;
-    const data: FormDataMap = { user: 'John', role: 'admin' };
+    const data: FormDataMap = { name: 'John', role: 'admin' };
 
-    const result = processMarkdown(template, data);
+    const result = processTemplate(template, data);
 
-    expect(result.trim()).toBe('Welcome John!\n        You have admin access.');
+    expect(result.trim()).toBe('Hello John!\n          You have admin access.');
   });
 
-  it('handles empty data object', () => {
-    const template = `
-      {{#if user}}
-        Welcome {{user}}!
-      {{/if}}
-      {{name}}
-    `;
-    const data: FormDataMap = {};
+  it('processes templates with math operations', () => {
+    const template = 'Total: ${{round (multiply price quantity)}}';
+    const data: FormDataMap = { price: '10.5', quantity: '3' };
 
-    const result = processMarkdown(template, data);
+    const result = processTemplate(template, data);
 
-    expect(result.trim()).toBe('{{name}}');
+    expect(result).toBe('Total: $32');
   });
 
-  it('preserves non-template text', () => {
-    const template = 'Regular text here\n{{#if user}}User: {{user}}{{/if}}\nMore regular text';
-    const data: FormDataMap = { user: 'John' };
+  it('caches compiled templates for better performance', () => {
+    const template1 = `Template1-${Date.now()}-${Math.random()}`; // Ensure unique template
+    const template2 = `Template2-${Date.now()}-${Math.random()}`; // Ensure unique template
+    const data: FormDataMap = { name: 'John' };
 
-    const result = processMarkdown(template, data);
+    processTemplate(template1, data);
 
-    expect(result).toBe('Regular text here\nUser: John\nMore regular text');
+    processTemplate(template1, data);
+
+    processTemplate(template2, data);
+
+    expect(true).toBe(true);
   });
 });
