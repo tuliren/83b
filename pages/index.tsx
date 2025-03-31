@@ -51,7 +51,7 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
         'flex flex-col justify-center min-h-screen items-center bg-gray-100',
         'gap-2',
         'p-4 sm:p-6',
-        'sm:px-8 lg:px-12 xl:px-36'
+        'sm:px-8 lg:px-8 xl:px-44'
       )}
     >
       <p className="text-3xl font-bold">83(b) Election Generator</p>
