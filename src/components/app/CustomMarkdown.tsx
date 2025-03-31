@@ -45,7 +45,7 @@ const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames,
   return (
     <div ref={targetRef} className="prose dark:prose-invert max-w-none">
       {headers.length > 0 && (
-        <div className="flex flex-col mb-5 pb-2 border-b border-gray-200">
+        <div className="flex flex-col space-y-1 mb-5 pb-2 border-b border-gray-200">
           {headers.map((section, index) => (
             <Fragment key={index}>{renderHeaderSection(section)}</Fragment>
           ))}
