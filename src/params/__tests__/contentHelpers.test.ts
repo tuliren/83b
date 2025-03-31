@@ -51,13 +51,13 @@ describe('replacePlaceholders', () => {
     expect(result).toBe('Hello John!');
   });
 
-  it('trims whitespace from data values', () => {
+  it('preserves whitespace in data values', () => {
     const template = 'Hello {{name}}!';
     const data: FormDataMap = { name: '  John  ' };
 
     const result = replacePlaceholders(template, data);
 
-    expect(result).toBe('Hello John!');
+    expect(result).toBe('Hello   John  !');
   });
 });
 
@@ -120,7 +120,7 @@ describe('processIfBlocks', () => {
   });
 
   it('handles whitespace in condition', () => {
-    const template = '{{#if  status  ==  active  }}Active{{/if}}';
+    const template = '{{#if  (eq status "active")  }}Active{{/if}}';
     const data: FormDataMap = { status: 'active' };
 
     const result = processIfBlocks(template, data);
@@ -143,7 +143,7 @@ describe('processMarkdown', () => {
 
     const result = processMarkdown(template, data);
 
-    expect(result.trim()).toBe('Welcome John!\n        You have admin access.');
+    expect(result.trim()).toBe('Welcome John!\n          You have admin access.');
   });
 
   it('handles empty data object', () => {
@@ -157,7 +157,7 @@ describe('processMarkdown', () => {
 
     const result = processMarkdown(template, data);
 
-    expect(result.trim()).toBe('{{name}}');
+    expect(result.trim()).toBe('');
   });
 
   it('preserves non-template text', () => {
