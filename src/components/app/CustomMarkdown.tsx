@@ -1,4 +1,4 @@
-import { FC, memo, RefObject, useRef } from 'react';
+import { CSSProperties, FC, Fragment, memo, RefObject, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
@@ -6,19 +6,51 @@ import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { HeaderSection } from '@/components/app/types';
 
 interface CustomMarkdownProps {
   content: string;
   textClassNames?: string[];
   containerRef?: RefObject<HTMLDivElement>;
+  headers?: HeaderSection[];
 }
 
-const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames, containerRef }) => {
+const CustomMarkdown: FC<CustomMarkdownProps> = memo(({ content, textClassNames, containerRef, headers = [] }) => {
   const defaultRef = useRef<HTMLDivElement>(null);
   const targetRef = containerRef || defaultRef;
 
+  const renderHeaderSection = (section: HeaderSection) => {
+    const alignmentClass =
+      section.alignment === 'center' ? 'text-center' : section.alignment === 'right' ? 'text-right' : 'text-left';
+
+    const styleProps: CSSProperties = {};
+    if (section.color) {
+      styleProps.color = section.color;
+    }
+    if (section.fontSize) {
+      styleProps.fontSize = `${section.fontSize}px`;
+    }
+
+    return (
+      <div className={cn('flex flex-col', alignmentClass)}>
+        {section.text.split('\n').map((text, index) => (
+          <p key={`header-text-${index}`} className={cn(section.bold ? 'font-bold' : '', 'mb-0')} style={styleProps}>
+            {text}
+          </p>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div ref={targetRef} className="prose dark:prose-invert max-w-none">
+      {headers.length > 0 && (
+        <div className="flex flex-col space-y-1 mb-5 pb-2 border-b border-gray-200">
+          {headers.map((section, index) => (
+            <Fragment key={index}>{renderHeaderSection(section)}</Fragment>
+          ))}
+        </div>
+      )}
       <ReactMarkdown
         components={{
           h1: ({ children }) => (

@@ -8,13 +8,18 @@ import type { Root, RootContent } from 'mdast';
 import remarkRehype from 'remark-rehype';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
+import { HeaderSection } from './types';
+import { Style } from '@react-pdf/types';
 
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';
 const ITALIC_FONT = 'Helvetica-Oblique';
 const LINE_HEIGHT = 0.9;
 const FONT_SIZE = 10;
-const PARAGRAPH_MARGIN_TOP = 10;
+const TITLE_MARGIN_TOP = 3;
+const TITLE_MARGIN_BOTTOM = 12;
+const PARAGRAPH_MARGIN_TOP = 2;
+const PARAGRAPH_MARGIN_BOTTOM = 4;
 
 const hyphenationCallback = (word: string) => {
   return [word];
@@ -33,14 +38,14 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginTop: 12,
+    marginTop: TITLE_MARGIN_TOP,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h2: {
     fontSize: 24,
-    marginTop: 10,
-    paddingBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     fontFamily: BOLD_FONT,
@@ -48,34 +53,35 @@ const styles = StyleSheet.create({
   },
   h3: {
     fontSize: 22,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h4: {
     fontSize: 20,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h5: {
     fontSize: 18,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   h6: {
     fontSize: 16,
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
   paragraph: {
     marginTop: PARAGRAPH_MARGIN_TOP,
+    marginBottom: PARAGRAPH_MARGIN_BOTTOM,
     lineHeight: LINE_HEIGHT,
   },
   list: {
@@ -123,10 +129,31 @@ const styles = StyleSheet.create({
   emphasis: {
     fontFamily: ITALIC_FONT,
   },
+  headerContainer: {
+    flexDirection: 'column',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+    paddingBottom: 2,
+  },
+  headerSection: {
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  headerTextLeft: {
+    textAlign: 'left',
+  },
+  headerTextCenter: {
+    textAlign: 'center',
+  },
+  headerTextRight: {
+    textAlign: 'right',
+  },
 });
 
 interface MarkdownPdfProps {
   text: string;
+  headers?: HeaderSection[];
 }
 
 const renderNode = (node: RootContent, parentType?: string): ReactNode => {
@@ -247,7 +274,46 @@ const renderNode = (node: RootContent, parentType?: string): ReactNode => {
   }
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
+const renderHeaderSection = (section: HeaderSection, index: number) => {
+  const alignmentStyle =
+    section.alignment === 'center'
+      ? styles.headerTextCenter
+      : section.alignment === 'right'
+        ? styles.headerTextRight
+        : styles.headerTextLeft;
+
+  const customStyle: Style = {
+    ...alignmentStyle,
+  };
+  if (section.color) {
+    customStyle.color = section.color;
+  }
+  if (section.fontSize) {
+    customStyle.fontSize = section.fontSize;
+  }
+  if (section.bold) {
+    customStyle.fontFamily = BOLD_FONT;
+  }
+
+  return (
+    <View
+      key={index}
+      style={{
+        ...styles.headerSection,
+        alignItems:
+          section.alignment === 'center' ? 'center' : section.alignment === 'right' ? 'flex-end' : 'flex-start',
+      }}
+    >
+      {section.text.split('\n').map((text, textIndex) => (
+        <Text key={`header-text-${textIndex}`} style={customStyle}>
+          {text}
+        </Text>
+      ))}
+    </View>
+  );
+};
+
+const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [] }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -262,6 +328,11 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text }) => {
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
+        {headers.length > 0 && (
+          <View style={styles.headerContainer}>
+            {headers.map((section, index) => renderHeaderSection(section, index))}
+          </View>
+        )}
         {ast.children.map((node, i) => (
           <Fragment key={i}>{renderNode(node)}</Fragment>
         ))}

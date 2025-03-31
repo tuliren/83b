@@ -12,7 +12,7 @@ interface PdfDownloadProps {
 const PdfDownload: FC<PdfDownloadProps> = ({ content, title }) => {
   return (
     <BlobProvider document={<MarkdownPdf text={content} />}>
-      {({ blob, url, loading, error }) => (
+      {({ url, loading, error }) => (
         <Button
           disabled={loading || !!error}
           onClick={() => {

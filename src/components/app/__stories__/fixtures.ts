@@ -1,3 +1,5 @@
+import { HeaderSection } from '@/components/app/types';
+
 export const MARKDOWN_TEXT = `# Hello World
 This is a test of the Markdown component with external [link](https://www.google.com).
 
@@ -41,3 +43,22 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 | Value 1 | Value 2 |
 | Value 3 | Value 4 |
 `;
+
+export const HEADERS: HeaderSection[] = [
+  {
+    text: 'CONFIDENTIAL',
+    alignment: 'left',
+    color: '#FF0000',
+    bold: true,
+  },
+  {
+    text: 'Markdown Example',
+    alignment: 'center',
+    fontSize: 14,
+  },
+  {
+    text: 'Page 1 of 1',
+    alignment: 'right',
+    color: '#666666',
+  },
+];

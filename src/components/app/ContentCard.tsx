@@ -4,15 +4,17 @@ import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
 import { processMarkdown } from '@/params/contentHelpers';
 import PdfViewer from '@/components/app/PdfViewer';
+import { HeaderSection } from '@/components/app/types';
 
 interface ContentCardProps {
   title: string;
   content: string;
   formData: FormDataMap;
   view?: 'text' | 'pdf';
+  headers?: HeaderSection[];
 }
 
-const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text' }) => {
+const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [] }) => {
   const processedContent = processMarkdown(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -23,9 +25,10 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 't
           containerRef={contentRef}
           content={processedContent}
           textClassNames={['text-sm', 'text-gray-700']}
+          headers={headers}
         />
       )}
-      {view === 'pdf' && <PdfViewer content={processedContent} />}
+      {view === 'pdf' && <PdfViewer content={processedContent} headers={headers} />}
     </BaseCard>
   );
 };
