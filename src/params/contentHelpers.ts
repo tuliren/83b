@@ -59,15 +59,3 @@ export const processTemplate = (template: string, data: FormDataMap): string => 
   const compiledTemplate = getCompiledTemplate(template);
   return compiledTemplate(data);
 };
-
-export const replacePlaceholders = (text: string, data: FormDataMap): string => {
-  return processTemplate(text, data);
-};
-
-export const processIfBlocks = (text: string, data: FormDataMap): string => {
-  return processTemplate(text, data);
-};
-
-export const processMarkdown = (text: string, data: FormDataMap): string => {
-  return processTemplate(text, data);
-};

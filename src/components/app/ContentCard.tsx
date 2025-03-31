@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import BaseCard from '@/components/app/BaseCard';
 import CustomMarkdown from '@/components/app/CustomMarkdown';
 import { FormDataMap } from '@/params/common';
-import { processMarkdown } from '@/params/contentHelpers';
+import { processTemplate } from '@/params/contentHelpers';
 import PdfViewer from '@/components/app/PdfViewer';
 import { HeaderSection } from '@/components/app/types';
 
@@ -15,7 +15,7 @@ interface ContentCardProps {
 }
 
 const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [] }) => {
-  const processedContent = processMarkdown(content, formData);
+  const processedContent = processTemplate(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
