@@ -10,7 +10,6 @@ import { ELECTION_PARAMS } from '@/files/constants';
 import { getInitialParams } from '@/params/paramHelpers';
 import Toolbar from '@/components/app/Toolbar';
 import { cn } from '@/lib/utils';
-import { HeaderSection } from '@/components/app/types';
 
 interface AppProps {
   election: string;
@@ -66,33 +65,29 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
         </div>
 
         <div className="col-span-1 md:col-span-4 space-y-4">
-          <ContentCard 
-            title="Election Preview - IRS File Copy" 
-            content={election} 
-            formData={formData} 
-            view={view} 
-            headers={[
-              { text: header1, alignment: 'center' }
-            ]}
+          <ContentCard
+            title="Election - IRS File Copy"
+            content={election}
+            formData={formData}
+            view={view}
+            headers={[{ text: header1, alignment: 'left' }]}
           />
-          <ContentCard 
-            title="Election Preview - IRS Acknowledgement Copy" 
-            content={election} 
-            formData={formData} 
-            view={view} 
+          <ContentCard
+            title="Election - IRS Acknowledgement Copy"
+            content={election}
+            formData={formData}
+            view={view}
             headers={[
+              { text: header2, alignment: 'left' },
               { text: attention, alignment: 'center' },
-              { text: header2, alignment: 'right' }
             ]}
           />
-          <ContentCard 
-            title="Letter to IRS" 
-            content={letter} 
-            formData={formData} 
-            view={view} 
-            headers={[
-              { text: header3, alignment: 'right' }
-            ]}
+          <ContentCard
+            title="Letter to IRS"
+            content={letter}
+            formData={formData}
+            view={view}
+            headers={[{ text: header3, alignment: 'left' }]}
           />
         </div>
       </div>
