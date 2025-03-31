@@ -24,22 +24,22 @@ describe('replacePlaceholders', () => {
     expect(result).toBe('Hi Alice! How is London?');
   });
 
-  it('preserves placeholder when no data is provided', () => {
+  it('replaces placeholder with empty string when no data is provided', () => {
     const template = 'Hello {{name}}!';
     const data: FormDataMap = {};
 
     const result = replacePlaceholders(template, data);
 
-    expect(result).toBe('Hello {{name}}!');
+    expect(result).toBe('Hello !');
   });
 
-  it('preserves placeholder when data value is empty string', () => {
+  it('replaces placeholder with empty string when data value is empty string', () => {
     const template = 'Hello {{name}}!';
     const data: FormDataMap = { name: '' };
 
     const result = replacePlaceholders(template, data);
 
-    expect(result).toBe('Hello {{name}}!');
+    expect(result).toBe('Hello !');
   });
 
   it('handles whitespace in placeholder names', () => {
@@ -80,8 +80,8 @@ describe('processIfBlocks', () => {
     expect(result).toBe('Start  End');
   });
 
-  it('processes equality operator correctly', () => {
-    const template = '{{#if status == active}}User is active{{/if}}';
+  it('processes equality helper correctly', () => {
+    const template = '{{#if (eq status "active")}}User is active{{/if}}';
     const data: FormDataMap = { status: 'active' };
 
     const result = processIfBlocks(template, data);
@@ -89,8 +89,8 @@ describe('processIfBlocks', () => {
     expect(result).toBe('User is active');
   });
 
-  it('processes inequality operator correctly', () => {
-    const template = '{{#if status != inactive}}User is not inactive{{/if}}';
+  it('processes inequality helper correctly', () => {
+    const template = '{{#if (neq status "inactive")}}User is not inactive{{/if}}';
     const data: FormDataMap = { status: 'active' };
 
     const result = processIfBlocks(template, data);
@@ -134,7 +134,7 @@ describe('processMarkdown', () => {
     const template = `
       {{#if user}}
         Welcome {{user}}!
-        {{#if role == admin}}
+        {{#if (eq role "admin")}}
           You have admin access.
         {{/if}}
       {{/if}}
