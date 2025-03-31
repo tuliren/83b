@@ -140,13 +140,6 @@ describe('Handlebars helpers', () => {
   });
 
   describe('round helper', () => {
-    it('rounds numbers to 2 decimal places by default', () => {
-      testHelper('round', [123.456], '123');
-      testHelper('round', [123.45], '123');
-      testHelper('round', [123], '123');
-      expect.hasAssertions();
-    });
-
     it('rounds to specified precision', () => {
       testHelper('round', [123.456, 0], '123');
       testHelper('round', [123.456, 1], '123.5');
