@@ -1,6 +1,5 @@
 import { processTemplate } from '../contentHelpers';
 import { FormDataMap } from '../common';
-import Handlebars from 'handlebars';
 
 const testHelper = (helperName: string, args: any[], expected: any) => {
   const template = `{{${helperName} ${args.map((_, i) => `arg${i}`).join(' ')}}}`;
@@ -15,18 +14,21 @@ describe('Handlebars helpers', () => {
       testHelper('eq', ['test', 'test'], 'true');
       testHelper('eq', [123, '123'], 'true');
       testHelper('eq', [true, 'true'], 'true');
+      expect.hasAssertions();
     });
 
     it('returns false when values are not equal as strings', () => {
       testHelper('eq', ['test', 'other'], 'false');
       testHelper('eq', [123, 456], 'false');
       testHelper('eq', [true, false], 'false');
+      expect.hasAssertions();
     });
 
     it('handles null and undefined values', () => {
       testHelper('eq', [null, null], 'true');
       testHelper('eq', [undefined, undefined], 'true');
       testHelper('eq', [null, undefined], 'false');
+      expect.hasAssertions();
     });
   });
 
@@ -35,12 +37,14 @@ describe('Handlebars helpers', () => {
       testHelper('neq', ['test', 'other'], 'true');
       testHelper('neq', [123, 456], 'true');
       testHelper('neq', [true, false], 'true');
+      expect.hasAssertions();
     });
 
     it('returns false when values are equal', () => {
       testHelper('neq', ['test', 'test'], 'false');
       testHelper('neq', [123, 123], 'false');
       testHelper('neq', [true, true], 'false');
+      expect.hasAssertions();
     });
   });
 
@@ -49,16 +53,19 @@ describe('Handlebars helpers', () => {
       testHelper('multiply', [5, 3], '15');
       testHelper('multiply', [2.5, 2], '5');
       testHelper('multiply', [0, 10], '0');
+      expect.hasAssertions();
     });
 
     it('handles string numbers', () => {
       testHelper('multiply', ['5', '3'], '15');
       testHelper('multiply', ['2.5', '2'], '5');
+      expect.hasAssertions();
     });
 
     it('handles invalid inputs', () => {
       testHelper('multiply', ['abc', 3], 'NaN');
       testHelper('multiply', [5, 'xyz'], 'NaN');
+      expect.hasAssertions();
     });
   });
 
@@ -67,11 +74,13 @@ describe('Handlebars helpers', () => {
       testHelper('subtract', [10, 3], '7');
       testHelper('subtract', [5, 10], '-5');
       testHelper('subtract', [3.5, 1.5], '2');
+      expect.hasAssertions();
     });
 
     it('handles string numbers', () => {
       testHelper('subtract', ['10', '3'], '7');
       testHelper('subtract', ['5', '10'], '-5');
+      expect.hasAssertions();
     });
   });
 
@@ -80,11 +89,13 @@ describe('Handlebars helpers', () => {
       testHelper('add', [5, 3], '8');
       testHelper('add', [2.5, 2.5], '5');
       testHelper('add', [0, 10], '10');
+      expect.hasAssertions();
     });
 
     it('handles string numbers', () => {
       testHelper('add', ['5', '3'], '8');
       testHelper('add', ['2.5', '2.5'], '5');
+      expect.hasAssertions();
     });
   });
 
@@ -93,15 +104,18 @@ describe('Handlebars helpers', () => {
       testHelper('divide', [10, 2], '5');
       testHelper('divide', [5, 2], '2.5');
       testHelper('divide', [0, 5], '0');
+      expect.hasAssertions();
     });
 
     it('returns 0 when dividing by zero', () => {
       testHelper('divide', [10, 0], '0');
+      expect.hasAssertions();
     });
 
     it('handles string numbers', () => {
       testHelper('divide', ['10', '2'], '5');
       testHelper('divide', ['5', '2'], '2.5');
+      expect.hasAssertions();
     });
   });
 
@@ -109,16 +123,19 @@ describe('Handlebars helpers', () => {
     it('formats numbers as strings', () => {
       testHelper('formatNumber', [123], '123');
       testHelper('formatNumber', [123.45], '123.45');
+      expect.hasAssertions();
     });
 
     it('returns empty string for null or undefined', () => {
       testHelper('formatNumber', [null], '');
       testHelper('formatNumber', [undefined], '');
+      expect.hasAssertions();
     });
 
     it('handles non-numeric values', () => {
       testHelper('formatNumber', ['test'], 'test');
       testHelper('formatNumber', [true], 'true');
+      expect.hasAssertions();
     });
   });
 
@@ -127,6 +144,7 @@ describe('Handlebars helpers', () => {
       testHelper('round', [123.456], '123');
       testHelper('round', [123.45], '123');
       testHelper('round', [123], '123');
+      expect.hasAssertions();
     });
 
     it('rounds to specified precision', () => {
@@ -134,21 +152,25 @@ describe('Handlebars helpers', () => {
       testHelper('round', [123.456, 1], '123.5');
       testHelper('round', [123.456, 3], '123.456');
       testHelper('round', [123.456, 4], '123.4560');
+      expect.hasAssertions();
     });
 
     it('handles negative precision as 0', () => {
       testHelper('round', [123.456, -1], '123');
       testHelper('round', [123.456, -2], '123');
+      expect.hasAssertions();
     });
 
     it('returns empty string for null or undefined', () => {
       testHelper('round', [null], '');
       testHelper('round', [undefined], '');
+      expect.hasAssertions();
     });
 
     it('handles string numbers', () => {
       testHelper('round', ['123.456'], '123');
       testHelper('round', ['123.456', 1], '123.5');
+      expect.hasAssertions();
     });
   });
 });
