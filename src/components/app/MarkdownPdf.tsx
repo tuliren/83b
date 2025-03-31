@@ -330,12 +330,7 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], fitInOnePage = 
 
   return (
     <Document>
-      <Page 
-        size="LETTER" 
-        style={styles.page}
-        wrap={!fitInOnePage}
-        minPresenceAhead={fitInOnePage ? 0 : 300}
-      >
+      <Page size="LETTER" style={styles.page} wrap={!fitInOnePage} minPresenceAhead={fitInOnePage ? 0 : 300}>
         {fitInOnePage && (
           <View style={{ transform: `scale(${MIN_SCALE_FACTOR})`, transformOrigin: 'top left' }}>
             {headers.length > 0 && (

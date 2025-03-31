@@ -15,7 +15,14 @@ interface ContentCardProps {
   fitInOnePage?: boolean;
 }
 
-const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [], fitInOnePage = false }) => {
+const ContentCard: FC<ContentCardProps> = ({
+  title,
+  content,
+  formData,
+  view = 'text',
+  headers = [],
+  fitInOnePage = false,
+}) => {
   const processedContent = processTemplate(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
 
