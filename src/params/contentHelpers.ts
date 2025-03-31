@@ -9,6 +9,28 @@ Handlebars.registerHelper('neq', function(a, b) {
   return a !== b;
 });
 
+Handlebars.registerHelper('multiply', function(a, b) {
+  return parseFloat(a) * parseFloat(b);
+});
+
+Handlebars.registerHelper('subtract', function(a, b) {
+  return parseFloat(a) - parseFloat(b);
+});
+
+Handlebars.registerHelper('add', function(a, b) {
+  return parseFloat(a) + parseFloat(b);
+});
+
+Handlebars.registerHelper('divide', function(a, b) {
+  if (parseFloat(b) === 0) return 0;
+  return parseFloat(a) / parseFloat(b);
+});
+
+Handlebars.registerHelper('formatNumber', function(value) {
+  if (value === undefined || value === null) return '';
+  return value.toString();
+});
+
 const templateCache = new Map<string, HandlebarsTemplateDelegate>();
 
 /**

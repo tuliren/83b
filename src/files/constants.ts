@@ -1,4 +1,3 @@
-import { OperationType, Operator } from '@/params/operations';
 import { sortFormParamsByDependencies } from '@/params/paramHelpers';
 import { DefaultFormParamType, FormParam, FormParamFunction } from '@/params/params';
 
@@ -105,13 +104,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     valueType: 'number',
     paramType: 'calculated',
     default: {
-      type: DefaultFormParamType.Formula,
-      operation: {
-        type: OperationType.BiOperation,
-        operator: Operator.Multiply,
-        left: 'fmv-per-share-price',
-        right: 'share-number',
-      },
+      type: DefaultFormParamType.HandlebarsFormula,
+      template: '{{multiply fmv-per-share-price share-number}}',
+      dependencies: ['fmv-per-share-price', 'share-number'],
     },
   },
   {
@@ -126,13 +121,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     valueType: 'number',
     paramType: 'calculated',
     default: {
-      type: DefaultFormParamType.Formula,
-      operation: {
-        type: OperationType.BiOperation,
-        operator: Operator.Multiply,
-        left: 'paid-per-share-price',
-        right: 'share-number',
-      },
+      type: DefaultFormParamType.HandlebarsFormula,
+      template: '{{multiply paid-per-share-price share-number}}',
+      dependencies: ['paid-per-share-price', 'share-number'],
     },
   },
   {
@@ -141,13 +132,9 @@ export const ELECTION_PARAMS: FormParam[] = sortFormParamsByDependencies([
     valueType: 'number',
     paramType: 'calculated',
     default: {
-      type: DefaultFormParamType.Formula,
-      operation: {
-        type: OperationType.BiOperation,
-        operator: Operator.Minus,
-        left: 'fmv-total-share-price',
-        right: 'paid-total-share-price',
-      },
+      type: DefaultFormParamType.HandlebarsFormula,
+      template: '{{subtract fmv-total-share-price paid-total-share-price}}',
+      dependencies: ['fmv-total-share-price', 'paid-total-share-price'],
     },
   },
   {
