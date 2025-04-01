@@ -9,10 +9,10 @@ interface PdfViewerProps {
   content: string;
   debounceTime?: number;
   headers?: HeaderSection[];
-  fitInOnePage?: boolean;
+  scalingFactor?: number;
 }
 
-const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [], fitInOnePage = false }) => {
+const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [], scalingFactor }) => {
   const [debouncedContent, setDebouncedContent] = useState(content);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -42,7 +42,7 @@ const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers =
         </div>
       )}
       <PDFViewer className="w-full h-[95vh]">
-        <MarkdownPdf text={debouncedContent} headers={headers} fitInOnePage={fitInOnePage} />
+        <MarkdownPdf text={debouncedContent} headers={headers} scalingFactor={scalingFactor} />
       </PDFViewer>
     </div>
   );

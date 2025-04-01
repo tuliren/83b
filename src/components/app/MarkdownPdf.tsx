@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
 interface MarkdownPdfProps {
   text: string;
   headers?: HeaderSection[];
-  fitInOnePage?: boolean;
+  scalingFactor?: number;
 }
 
 const renderNode = (node: RootContent, parentType?: string): ReactNode => {
@@ -314,7 +314,7 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   );
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], fitInOnePage = false }) => {
+const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -327,12 +327,14 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], fitInOnePage = 
   const ast = processor.parse(text) as Root;
 
   const MIN_SCALE_FACTOR = 0.7;
+  const useScaling = scalingFactor !== undefined;
+  const actualScaleFactor = useScaling ? Math.max(scalingFactor, MIN_SCALE_FACTOR) : 1;
 
   return (
     <Document>
-      <Page size="LETTER" style={styles.page} wrap={!fitInOnePage} minPresenceAhead={fitInOnePage ? 0 : 300}>
-        {fitInOnePage && (
-          <View style={{ transform: `scale(${MIN_SCALE_FACTOR})`, transformOrigin: 'top left' }}>
+      <Page size="LETTER" style={styles.page} wrap={!useScaling} minPresenceAhead={useScaling ? 0 : 300}>
+        {useScaling ? (
+          <View style={{ transform: `scale(${actualScaleFactor})`, transformOrigin: 'top left' }}>
             {headers.length > 0 && (
               <View style={styles.headerContainer}>
                 {headers.map((section, index) => renderHeaderSection(section, index))}
@@ -342,8 +344,7 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], fitInOnePage = 
               <Fragment key={i}>{renderNode(node)}</Fragment>
             ))}
           </View>
-        )}
-        {!fitInOnePage && (
+        ) : (
           <>
             {headers.length > 0 && (
               <View style={styles.headerContainer}>
