@@ -1,8 +1,9 @@
+import { PDFViewer } from '@react-pdf/renderer';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
+
 import MarkdownPdf from '@/components/app/MarkdownPdf';
 import { HEADERS, MARKDOWN_TEXT } from '@/components/app/__stories__/fixtures';
-import { PDFViewer } from '@react-pdf/renderer';
 
 const meta: Meta<typeof MarkdownPdf> = {
   title: 'MarkdownPdf',

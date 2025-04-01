@@ -1,5 +1,6 @@
-import { FormDataMap } from '@/params/common';
 import Handlebars from 'handlebars';
+
+import { FormDataMap } from '@/params/common';
 
 type HandlebarsValue = string | number | boolean | null | undefined;
 

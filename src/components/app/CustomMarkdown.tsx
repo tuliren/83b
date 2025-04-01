@@ -1,12 +1,13 @@
-import { CSSProperties, FC, Fragment, memo, RefObject, useRef } from 'react';
+import { CSSProperties, FC, Fragment, RefObject, memo, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
+
+import { HeaderSection } from '@/components/app/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { HeaderSection } from '@/components/app/types';
 
 interface CustomMarkdownProps {
   content: string;

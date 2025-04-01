@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import { FC } from 'react';
 
 import BaseCard from '@/components/app/BaseCard';
 import { CardDescription } from '@/components/ui/card';
-import Link from 'next/link';
 
 interface OverviewCardProps {}
 

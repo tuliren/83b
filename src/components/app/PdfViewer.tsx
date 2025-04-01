@@ -1,8 +1,9 @@
-import { FC, useEffect, useMemo, useState } from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import MarkdownPdf from '@/components/app/MarkdownPdf';
+import { PDFViewer } from '@react-pdf/renderer';
 import { debounce } from 'lodash';
+import { FC, useEffect, useMemo, useState } from 'react';
+
+import MarkdownPdf from '@/components/app/MarkdownPdf';
 import { HeaderSection } from '@/components/app/types';
 
 interface PdfViewerProps {

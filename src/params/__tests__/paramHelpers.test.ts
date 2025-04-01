@@ -1,5 +1,5 @@
-import { getInitialParams, isParamConditionMet, evaluateParams, sortFormParamsByDependencies } from '../paramHelpers';
 import { FormDataMap } from '../common';
+import { evaluateParams, getInitialParams, isParamConditionMet, sortFormParamsByDependencies } from '../paramHelpers';
 import { DefaultFormParamType, FormParam, FormParamFunction } from '../params';
 
 jest.mock('../contentHelpers', () => ({

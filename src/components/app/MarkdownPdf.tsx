@@ -1,15 +1,16 @@
-import { FC, Fragment, ReactNode } from 'react';
 import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import { Style } from '@react-pdf/types';
 import type { Root, RootContent } from 'mdast';
-import remarkRehype from 'remark-rehype';
+import { FC, Fragment, ReactNode } from 'react';
+import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
+
 import { HeaderSection } from './types';
-import { Style } from '@react-pdf/types';
 
 const NORMAL_FONT = 'Helvetica';
 const BOLD_FONT = 'Helvetica-Bold';

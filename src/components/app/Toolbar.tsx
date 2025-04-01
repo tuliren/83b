@@ -1,6 +1,7 @@
-import * as React from 'react';
-import * as RadixToolbar from '@radix-ui/react-toolbar';
 import { DocumentIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import * as RadixToolbar from '@radix-ui/react-toolbar';
+import * as React from 'react';
+
 import { cn } from '@/lib/utils';
 
 interface ToolbarProps {

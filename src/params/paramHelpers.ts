@@ -1,6 +1,6 @@
 import { FormDataMap } from '@/params/common';
-import { DefaultFormParamType, FormParam, FormParamFunction } from '@/params/params';
 import { processTemplate } from '@/params/contentHelpers';
+import { DefaultFormParamType, FormParam, FormParamFunction } from '@/params/params';
 
 export const getInitialParams = (formParams: FormParam[]): FormDataMap => {
   return formParams.reduce((acc, param) => {

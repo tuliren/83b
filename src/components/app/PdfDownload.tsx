@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { BlobProvider } from '@react-pdf/renderer';
+import { FC } from 'react';
+
 import { Button } from '../ui/button';
 import MarkdownPdf from './MarkdownPdf';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 interface PdfDownloadProps {
   content: string;

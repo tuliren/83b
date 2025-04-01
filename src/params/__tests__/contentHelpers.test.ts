@@ -1,5 +1,5 @@
-import { processTemplate } from '../contentHelpers';
 import { FormDataMap } from '../common';
+import { processTemplate } from '../contentHelpers';
 
 const testHelper = (helperName: string, args: any[], expected: any) => {
   const template = `{{${helperName} ${args.map((_, i) => `arg${i}`).join(' ')}}}`;

@@ -1,10 +1,11 @@
 import { FC, useRef } from 'react';
+
 import BaseCard from '@/components/app/BaseCard';
 import CustomMarkdown from '@/components/app/CustomMarkdown';
-import { FormDataMap } from '@/params/common';
-import { processTemplate } from '@/params/contentHelpers';
 import PdfViewer from '@/components/app/PdfViewer';
 import { HeaderSection } from '@/components/app/types';
+import { FormDataMap } from '@/params/common';
+import { processTemplate } from '@/params/contentHelpers';
 
 interface ContentCardProps {
   title: string;

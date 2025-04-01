@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "next lint",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,cjs,json}\"",
-    "prettier:write": "prettier --write \"**/*.{ts,tsx,js,cjs,json}\" --loglevel=warn",
+    "prettier:write": "prettier --write \"**/*.{ts,tsx,js,cjs,json}\" -v --log-level=warn",
     "prepare": "husky",
     "storybook": "storybook dev",
     "build-storybook": "storybook build",

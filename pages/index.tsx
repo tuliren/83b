@@ -6,10 +6,10 @@ import ContentCard from '@/components/app/ContentCard';
 import Footer from '@/components/app/Footer';
 import OverviewCard from '@/components/app/OverviewCard';
 import ParamsCard from '@/components/app/ParamsCard';
-import { ELECTION_PARAMS } from '@/files/constants';
-import { getInitialParams } from '@/params/paramHelpers';
 import Toolbar from '@/components/app/Toolbar';
+import { ELECTION_PARAMS } from '@/files/constants';
 import { cn } from '@/lib/utils';
+import { getInitialParams } from '@/params/paramHelpers';
 
 interface AppProps {
   election: string;
