@@ -26,3 +26,11 @@ export const Primary: Story = {
     headers: HEADERS,
   },
 };
+
+export const Scaled: Story = {
+  args: {
+    text: MARKDOWN_TEXT,
+    headers: HEADERS,
+    scalingFactor: 0.5,
+  },
+};

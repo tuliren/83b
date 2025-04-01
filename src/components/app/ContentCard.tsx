@@ -12,9 +12,17 @@ interface ContentCardProps {
   formData: FormDataMap;
   view?: 'text' | 'pdf';
   headers?: HeaderSection[];
+  scalingFactor?: number;
 }
 
-const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 'text', headers = [] }) => {
+const ContentCard: FC<ContentCardProps> = ({
+  title,
+  content,
+  formData,
+  view = 'text',
+  headers = [],
+  scalingFactor = 1,
+}) => {
   const processedContent = processTemplate(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +36,7 @@ const ContentCard: FC<ContentCardProps> = ({ title, content, formData, view = 't
           headers={headers}
         />
       )}
-      {view === 'pdf' && <PdfViewer content={processedContent} headers={headers} />}
+      {view === 'pdf' && <PdfViewer content={processedContent} headers={headers} scalingFactor={scalingFactor} />}
     </BaseCard>
   );
 };

@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginTop: TITLE_MARGIN_TOP,
+    marginBottom: TITLE_MARGIN_BOTTOM,
     fontFamily: BOLD_FONT,
     lineHeight: LINE_HEIGHT,
   },
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: TITLE_MARGIN_TOP,
     marginBottom: TITLE_MARGIN_BOTTOM,
+    paddingBottom: '8px',
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     fontFamily: BOLD_FONT,
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
 interface MarkdownPdfProps {
   text: string;
   headers?: HeaderSection[];
+  scalingFactor?: number;
 }
 
 const renderNode = (node: RootContent, parentType?: string): ReactNode => {
@@ -313,7 +316,7 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   );
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [] }) => {
+const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor = 1 }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -328,14 +331,16 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [] }) => {
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
-        {headers.length > 0 && (
-          <View style={styles.headerContainer}>
-            {headers.map((section, index) => renderHeaderSection(section, index))}
-          </View>
-        )}
-        {ast.children.map((node, i) => (
-          <Fragment key={i}>{renderNode(node)}</Fragment>
-        ))}
+        <View style={{ transform: `scale(${scalingFactor})`, transformOrigin: 'top left' }}>
+          {headers.length > 0 && (
+            <View style={styles.headerContainer}>
+              {headers.map((section, index) => renderHeaderSection(section, index))}
+            </View>
+          )}
+          {ast.children.map((node, i) => (
+            <Fragment key={i}>{renderNode(node)}</Fragment>
+          ))}
+        </View>
       </Page>
     </Document>
   );

@@ -8,13 +8,24 @@ This is a test of the Markdown component with external [link](https://www.google
 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 </details>
 
-<br />
-
 ## Titles
+
+This is a paragraph.
+
 ### Level 3 title
+
+This is a paragraph.
+
 #### Level 4 title
+
+This is a paragraph.
+
 ##### Level 5 title
+
+This is a paragraph.
 ###### Level 6 title
+
+This is a paragraph.
 
 <br />
 
@@ -25,7 +36,6 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry.
    - Sublist 1
    - Sublist 2
       - Sublist 2.1
-      - Sublist 2.2
 
 <br />
 
@@ -33,7 +43,6 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 - [ ] Task 1
 - [ ] Task 2
   - [x] Subtask 2.1
-  - [x] Subtask 2.2
 
 <br />
 
