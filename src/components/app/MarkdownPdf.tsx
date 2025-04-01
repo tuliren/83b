@@ -314,7 +314,7 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   );
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor }) => {
+const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor = 1 }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -326,36 +326,19 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor }
     .use(rehypeStringify);
   const ast = processor.parse(text) as Root;
 
-  const MIN_SCALE_FACTOR = 0.7;
-  const useScaling = scalingFactor !== undefined;
-  const actualScaleFactor = useScaling ? Math.max(scalingFactor, MIN_SCALE_FACTOR) : 1;
-
   return (
     <Document>
-      <Page size="LETTER" style={styles.page} wrap={!useScaling} minPresenceAhead={useScaling ? 0 : 300}>
-        {useScaling ? (
-          <View style={{ transform: `scale(${actualScaleFactor})`, transformOrigin: 'top left' }}>
-            {headers.length > 0 && (
-              <View style={styles.headerContainer}>
-                {headers.map((section, index) => renderHeaderSection(section, index))}
-              </View>
-            )}
-            {ast.children.map((node, i) => (
-              <Fragment key={i}>{renderNode(node)}</Fragment>
-            ))}
-          </View>
-        ) : (
-          <>
-            {headers.length > 0 && (
-              <View style={styles.headerContainer}>
-                {headers.map((section, index) => renderHeaderSection(section, index))}
-              </View>
-            )}
-            {ast.children.map((node, i) => (
-              <Fragment key={i}>{renderNode(node)}</Fragment>
-            ))}
-          </>
-        )}
+      <Page size="LETTER" style={styles.page}>
+        <View style={{ transform: `scale(${scalingFactor})`, transformOrigin: 'top left' }}>
+          {headers.length > 0 && (
+            <View style={styles.headerContainer}>
+              {headers.map((section, index) => renderHeaderSection(section, index))}
+            </View>
+          )}
+          {ast.children.map((node, i) => (
+            <Fragment key={i}>{renderNode(node)}</Fragment>
+          ))}
+        </View>
       </Page>
     </Document>
   );

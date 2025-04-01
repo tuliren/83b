@@ -71,7 +71,6 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
             formData={formData}
             view={view}
             headers={[{ text: header1, alignment: 'left' }]}
-            scalingFactor={0.8}
           />
           <ContentCard
             title="Election - IRS Acknowledgement Copy"

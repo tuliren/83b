@@ -12,7 +12,7 @@ interface PdfViewerProps {
   scalingFactor?: number;
 }
 
-const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [], scalingFactor }) => {
+const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [], scalingFactor = 1 }) => {
   const [debouncedContent, setDebouncedContent] = useState(content);
   const [isUpdating, setIsUpdating] = useState(false);
 

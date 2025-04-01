@@ -21,7 +21,7 @@ const ContentCard: FC<ContentCardProps> = ({
   formData,
   view = 'text',
   headers = [],
-  scalingFactor,
+  scalingFactor = 1,
 }) => {
   const processedContent = processTemplate(content, formData);
   const contentRef = useRef<HTMLDivElement>(null);
