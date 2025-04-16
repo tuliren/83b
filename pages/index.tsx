@@ -5,6 +5,8 @@ import { FC, useMemo, useState } from 'react';
 import BaseCard from '@/components/app/BaseCard';
 import CustomMarkdown from '@/components/app/CustomMarkdown';
 import Footer from '@/components/app/Footer';
+import IrsPdfDownload from '@/components/app/IrsPdfDownload';
+import IrsPdfViewer from '@/components/app/IrsPdfViewer';
 import OverviewCard from '@/components/app/OverviewCard';
 import ParamsCard from '@/components/app/ParamsCard';
 import PdfViewer from '@/components/app/PdfViewer';
@@ -47,7 +49,7 @@ export async function getStaticProps() {
 const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attention }) => {
   const initialFormData = getInitialParams(ELECTION_PARAMS);
   const [formData, setFormData] = useState(initialFormData);
-  const [view, setView] = useState<'text' | 'pdf'>('text');
+  const [view, setView] = useState<'text' | 'pdf' | 'irs-pdf'>('text');
 
   const pages: ContentPage[] = useMemo(() => {
     const processedElection = processTemplate(election, formData);
@@ -86,12 +88,15 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
     >
       <p className="text-3xl font-bold">83(b) Election Generator</p>
       <p className="text-muted-foreground text-lg">(under construction)</p>
-      <Toolbar view={view} onViewChange={setView} />
+      <Toolbar view={view} onViewChange={setView} showIrsOption={true} />
 
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full">
         <div className="col-span-1 md:col-span-2 space-y-4">
           <OverviewCard />
           <ParamsCard formData={formData} setFormData={setFormData} />
+          {view === 'irs-pdf' && (
+            <IrsPdfDownload formData={formData} />
+          )}
         </div>
 
         <div className="col-span-1 md:col-span-4 space-y-4">
@@ -99,6 +104,10 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
             <BaseCard title="PDF File">
               <PdfViewer pages={pages} />
             </BaseCard>
+          )}
+
+          {view === 'irs-pdf' && (
+            <IrsPdfViewer formData={formData} />
           )}
 
           {view === 'text' &&

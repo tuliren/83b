@@ -5,17 +5,18 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 interface ToolbarProps {
-  view: 'text' | 'pdf';
-  onViewChange: (value: 'text' | 'pdf') => void;
+  view: 'text' | 'pdf' | 'irs-pdf';
+  onViewChange: (value: 'text' | 'pdf' | 'irs-pdf') => void;
+  showIrsOption?: boolean;
 }
 
-export default function Toolbar({ view, onViewChange }: ToolbarProps) {
+export default function Toolbar({ view, onViewChange, showIrsOption = false }: ToolbarProps) {
   return (
     <RadixToolbar.Root className="flex w-full h-10 items-center justify-center">
       <RadixToolbar.ToggleGroup
         type="single"
         value={view}
-        onValueChange={(value) => value && onViewChange(value as 'text' | 'pdf')}
+        onValueChange={(value) => value && onViewChange(value as 'text' | 'pdf' | 'irs-pdf')}
         aria-label="View options"
         className="inline-flex rounded-lg bg-secondary p-1 gap-1"
       >
@@ -41,6 +42,19 @@ export default function Toolbar({ view, onViewChange }: ToolbarProps) {
           <DocumentIcon className="w-4 h-4 mr-2" />
           PDF
         </RadixToolbar.ToggleItem>
+        {showIrsOption && (
+          <RadixToolbar.ToggleItem
+            value="irs-pdf"
+            aria-label="Show IRS PDF view"
+            className={cn(
+              'flex items-center rounded-md px-3 py-1.5 text-sm font-medium',
+              'data-[state=on]:bg-background data-[state=on]:shadow-sm'
+            )}
+          >
+            <DocumentIcon className="w-4 h-4 mr-2" />
+            IRS Form
+          </RadixToolbar.ToggleItem>
+        )}
       </RadixToolbar.ToggleGroup>
     </RadixToolbar.Root>
   );
