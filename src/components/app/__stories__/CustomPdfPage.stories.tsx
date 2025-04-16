@@ -1,25 +1,27 @@
-import { PDFViewer } from '@react-pdf/renderer';
+import { Document, PDFViewer } from '@react-pdf/renderer';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import CustomPdf from '@/components/app/CustomPdf';
+import CustomPdfPage from '@/components/app/CustomPdfPage';
 import { HEADERS, MARKDOWN_TEXT } from '@/components/app/__stories__/fixtures';
 
-const meta: Meta<typeof CustomPdf> = {
-  title: 'MarkdownPdf',
-  component: CustomPdf,
+const meta: Meta<typeof CustomPdfPage> = {
+  title: 'CustomPdfPage',
+  component: CustomPdfPage,
   tags: ['autodocs'],
   decorators: [
     fn((Story) => (
       <PDFViewer className="w-full h-[95vh]">
-        <Story />
+        <Document>
+          <Story />
+        </Document>
       </PDFViewer>
     )),
   ],
 };
 
 export default meta;
-type Story = StoryObj<typeof CustomPdf>;
+type Story = StoryObj<typeof CustomPdfPage>;
 
 export const Primary: Story = {
   args: {

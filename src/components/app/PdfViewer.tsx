@@ -3,7 +3,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { debounce } from 'lodash';
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import CustomPdf from '@/components/app/CustomPdf';
+import CustomPdfPage from '@/components/app/CustomPdfPage';
 import { HeaderSection } from '@/components/app/types';
 
 interface PdfViewerProps {
@@ -43,7 +43,7 @@ const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers =
         </div>
       )}
       <PDFViewer className="w-full h-[95vh]">
-        <CustomPdf text={debouncedContent} headers={headers} scalingFactor={scalingFactor} />
+        <CustomPdfPage text={debouncedContent} headers={headers} scalingFactor={scalingFactor} />
       </PDFViewer>
     </div>
   );
