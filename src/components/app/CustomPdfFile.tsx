@@ -1,10 +1,11 @@
 import { Document } from '@react-pdf/renderer';
 import { FC } from 'react';
 
-import CustomPdfPage, { CustomPdfPageProps } from '@/components/app/CustomPdfPage';
+import CustomPdfPage from '@/components/app/CustomPdfPage';
+import { ContentPage } from '@/components/app/types';
 
 interface CustomPdfFileProps {
-  pages: CustomPdfPageProps[];
+  pages: ContentPage[];
 }
 
 const CustomPdfFile: FC<CustomPdfFileProps> = ({ pages }) => {

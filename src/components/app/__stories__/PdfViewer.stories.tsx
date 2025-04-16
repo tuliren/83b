@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import PdfViewer from '@/components/app/PdfViewer';
-import { MARKDOWN_TEXT } from '@/components/app/__stories__/fixtures';
+import { HEADERS, MARKDOWN_TEXT } from '@/components/app/__stories__/fixtures';
 
 const meta: Meta<typeof PdfViewer> = {
   title: 'PdfViewer',
@@ -14,6 +14,12 @@ type Story = StoryObj<typeof PdfViewer>;
 
 export const Primary: Story = {
   args: {
-    content: MARKDOWN_TEXT,
+    pages: [
+      {
+        title: 'Document Title',
+        text: MARKDOWN_TEXT,
+        headers: HEADERS,
+      },
+    ],
   },
 };
