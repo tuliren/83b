@@ -25,10 +25,12 @@ export const Primary: Story = {
   args: {
     pages: [
       {
+        title: 'First Page',
         text: MARKDOWN_TEXT,
         headers: HEADERS,
       },
       {
+        title: 'Duplicated Page',
         text: MARKDOWN_TEXT,
         headers: HEADERS,
       },
