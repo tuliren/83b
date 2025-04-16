@@ -1,14 +1,18 @@
 import fs from 'fs';
 import path from 'path';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
-import ContentCard from '@/components/app/ContentCard';
+import BaseCard from '@/components/app/BaseCard';
+import CustomMarkdown from '@/components/app/CustomMarkdown';
 import Footer from '@/components/app/Footer';
 import OverviewCard from '@/components/app/OverviewCard';
 import ParamsCard from '@/components/app/ParamsCard';
+import PdfViewer from '@/components/app/PdfViewer';
 import Toolbar from '@/components/app/Toolbar';
+import { ContentPage } from '@/components/app/types';
 import { ELECTION_PARAMS } from '@/files/constants';
 import { cn } from '@/lib/utils';
+import { processTemplate } from '@/params/contentHelpers';
 import { getInitialParams } from '@/params/paramHelpers';
 
 interface AppProps {
@@ -45,6 +49,32 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
   const [formData, setFormData] = useState(initialFormData);
   const [view, setView] = useState<'text' | 'pdf'>('text');
 
+  const pages: ContentPage[] = useMemo(() => {
+    const processedElection = processTemplate(election, formData);
+    const processedLetter = processTemplate(letter, formData);
+
+    return [
+      {
+        title: 'Election - IRS File Copy',
+        text: processedElection,
+        headers: [{ text: header1, alignment: 'left' }],
+      },
+      {
+        title: 'Election - IRS Acknowledgement Copy',
+        text: processedElection,
+        headers: [
+          { text: attention, alignment: 'center', color: 'red', bold: true },
+          { text: header2, alignment: 'left' },
+        ],
+      },
+      {
+        title: 'Letter to IRS',
+        text: processedLetter,
+        headers: [{ text: header3, alignment: 'left' }],
+      },
+    ];
+  }, [attention, election, formData, header1, header2, header3, letter]);
+
   return (
     <main
       className={cn(
@@ -65,30 +95,18 @@ const App: FC<AppProps> = ({ election, letter, header1, header2, header3, attent
         </div>
 
         <div className="col-span-1 md:col-span-4 space-y-4">
-          <ContentCard
-            title="Election - IRS File Copy"
-            content={election}
-            formData={formData}
-            view={view}
-            headers={[{ text: header1, alignment: 'left' }]}
-          />
-          <ContentCard
-            title="Election - IRS Acknowledgement Copy"
-            content={election}
-            formData={formData}
-            view={view}
-            headers={[
-              { text: attention, alignment: 'center', color: 'red', bold: true },
-              { text: header2, alignment: 'left' },
-            ]}
-          />
-          <ContentCard
-            title="Letter to IRS"
-            content={letter}
-            formData={formData}
-            view={view}
-            headers={[{ text: header3, alignment: 'left' }]}
-          />
+          {view === 'pdf' && (
+            <BaseCard title="PDF File">
+              <PdfViewer pages={pages} />
+            </BaseCard>
+          )}
+
+          {view === 'text' &&
+            pages.map(({ title, text, headers }, index) => (
+              <BaseCard key={`content-card-${index}-${title}`} title={title}>
+                <CustomMarkdown content={text} headers={headers} />
+              </BaseCard>
+            ))}
         </div>
       </div>
 

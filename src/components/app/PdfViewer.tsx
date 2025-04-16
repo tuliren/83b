@@ -3,24 +3,22 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { debounce } from 'lodash';
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import CustomPdf from '@/components/app/CustomPdf';
-import { HeaderSection } from '@/components/app/types';
+import CustomPdfFile from '@/components/app/CustomPdfFile';
+import { ContentPage } from '@/components/app/types';
 
 interface PdfViewerProps {
-  content: string;
+  pages: ContentPage[];
   debounceTime?: number;
-  headers?: HeaderSection[];
-  scalingFactor?: number;
 }
 
-const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers = [], scalingFactor = 1 }) => {
-  const [debouncedContent, setDebouncedContent] = useState(content);
+const PdfViewer: FC<PdfViewerProps> = ({ pages, debounceTime = 1000 }) => {
+  const [debouncedPages, setDebouncedPages] = useState(pages);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const debouncedUpdate = useMemo(
     () =>
-      debounce((newContent: string) => {
-        setDebouncedContent(newContent);
+      debounce((newPages: ContentPage[]) => {
+        setDebouncedPages(newPages);
         setIsUpdating(false);
       }, debounceTime),
     [debounceTime]
@@ -28,12 +26,12 @@ const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers =
 
   useEffect(() => {
     setIsUpdating(true);
-    debouncedUpdate(content);
+    debouncedUpdate(pages);
 
     return () => {
       debouncedUpdate.cancel();
     };
-  }, [content, debouncedUpdate]);
+  }, [pages, debouncedUpdate]);
 
   return (
     <div className="relative flex flex-col m-0 p-0">
@@ -43,7 +41,7 @@ const PdfViewer: FC<PdfViewerProps> = ({ content, debounceTime = 2000, headers =
         </div>
       )}
       <PDFViewer className="w-full h-[95vh]">
-        <CustomPdf text={debouncedContent} headers={headers} scalingFactor={scalingFactor} />
+        <CustomPdfFile pages={debouncedPages} />
       </PDFViewer>
     </div>
   );

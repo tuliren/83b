@@ -5,3 +5,10 @@ export interface HeaderSection {
   fontSize?: number;
   bold?: boolean;
 }
+
+export interface ContentPage {
+  title: string;
+  text: string;
+  headers?: HeaderSection[];
+  scalingFactor?: number;
+}

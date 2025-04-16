@@ -1,4 +1,4 @@
-import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import { Style } from '@react-pdf/types';
 import type { Root, RootContent } from 'mdast';
 import { FC, Fragment, ReactNode } from 'react';
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface CustomPdfProps {
+export interface CustomPdfPageProps {
   text: string;
   headers?: HeaderSection[];
   scalingFactor?: number;
@@ -317,7 +317,7 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   );
 };
 
-const CustomPdf: FC<CustomPdfProps> = ({ text, headers = [], scalingFactor = 1 }) => {
+const CustomPdfPage: FC<CustomPdfPageProps> = ({ text, headers = [], scalingFactor = 1 }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -330,21 +330,19 @@ const CustomPdf: FC<CustomPdfProps> = ({ text, headers = [], scalingFactor = 1 }
   const ast = processor.parse(text) as Root;
 
   return (
-    <Document>
-      <Page size="LETTER" style={styles.page}>
-        <View style={{ transform: `scale(${scalingFactor})`, transformOrigin: 'top left' }}>
-          {headers.length > 0 && (
-            <View style={styles.headerContainer}>
-              {headers.map((section, index) => renderHeaderSection(section, index))}
-            </View>
-          )}
-          {ast.children.map((node, i) => (
-            <Fragment key={i}>{renderNode(node)}</Fragment>
-          ))}
-        </View>
-      </Page>
-    </Document>
+    <Page size="LETTER" style={styles.page}>
+      <View style={{ transform: `scale(${scalingFactor})`, transformOrigin: 'top left' }}>
+        {headers.length > 0 && (
+          <View style={styles.headerContainer}>
+            {headers.map((section, index) => renderHeaderSection(section, index))}
+          </View>
+        )}
+        {ast.children.map((node, i) => (
+          <Fragment key={i}>{renderNode(node)}</Fragment>
+        ))}
+      </View>
+    </Page>
   );
 };
 
-export default CustomPdf;
+export default CustomPdfPage;
