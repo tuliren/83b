@@ -20,19 +20,11 @@ This is a paragraph.
 
 This is a paragraph.
 
-##### Level 5 title
-
-This is a paragraph.
-###### Level 6 title
-
-This is a paragraph.
-
 <br />
 
 ## Lists
 1. First
 2. Second
-3. Third
    - Sublist 1
    - Sublist 2
       - Sublist 2.1
@@ -41,10 +33,7 @@ This is a paragraph.
 
 ## TODOs
 - [ ] Task 1
-- [ ] Task 2
-  - [x] Subtask 2.1
-
-<br />
+  - [x] Subtask 1.1
 
 ## Table
 | Column 1 | Column 2|

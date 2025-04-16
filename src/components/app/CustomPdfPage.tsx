@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface CustomPdfPageProps {
+export interface CustomPdfPageProps {
   text: string;
   headers?: HeaderSection[];
   scalingFactor?: number;
