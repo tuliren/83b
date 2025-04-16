@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface MarkdownPdfProps {
+interface CustomPdfProps {
   text: string;
   headers?: HeaderSection[];
   scalingFactor?: number;
@@ -317,7 +317,7 @@ const renderHeaderSection = (section: HeaderSection, index: number) => {
   );
 };
 
-const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor = 1 }) => {
+const CustomPdf: FC<CustomPdfProps> = ({ text, headers = [], scalingFactor = 1 }) => {
   const processor = unified()
     // remark processes markdown
     .use(remarkParse)
@@ -347,4 +347,4 @@ const MarkdownPdf: FC<MarkdownPdfProps> = ({ text, headers = [], scalingFactor =
   );
 };
 
-export default MarkdownPdf;
+export default CustomPdf;

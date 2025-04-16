@@ -3,7 +3,7 @@ import { BlobProvider } from '@react-pdf/renderer';
 import { FC } from 'react';
 
 import { Button } from '../ui/button';
-import MarkdownPdf from './MarkdownPdf';
+import CustomPdf from './CustomPdf';
 
 interface PdfDownloadProps {
   content: string;
@@ -12,7 +12,7 @@ interface PdfDownloadProps {
 
 const PdfDownload: FC<PdfDownloadProps> = ({ content, title }) => {
   return (
-    <BlobProvider document={<MarkdownPdf text={content} />}>
+    <BlobProvider document={<CustomPdf text={content} />}>
       {({ url, loading, error }) => (
         <Button
           disabled={loading || !!error}

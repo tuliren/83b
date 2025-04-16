@@ -2,12 +2,12 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import MarkdownPdf from '@/components/app/MarkdownPdf';
+import CustomPdf from '@/components/app/CustomPdf';
 import { HEADERS, MARKDOWN_TEXT } from '@/components/app/__stories__/fixtures';
 
-const meta: Meta<typeof MarkdownPdf> = {
+const meta: Meta<typeof CustomPdf> = {
   title: 'MarkdownPdf',
-  component: MarkdownPdf,
+  component: CustomPdf,
   tags: ['autodocs'],
   decorators: [
     fn((Story) => (
@@ -19,7 +19,7 @@ const meta: Meta<typeof MarkdownPdf> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MarkdownPdf>;
+type Story = StoryObj<typeof CustomPdf>;
 
 export const Primary: Story = {
   args: {
